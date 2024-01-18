@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -43,12 +44,14 @@ public class PatientRepoImpl implements PatientRepo{
 
     @Override
     public Patient addPatient(Patient patient) {
+
+        LocalDate localDate = LocalDate.parse( patient.getBirthday().toString()) ;
         final String INSERT_Patient = "INSERT INTO Patient(pFName, pLName, birthday, phoneNumber, insuranceProvider) "
                 + "VALUES(?,?,?,?,?)";
         jdbc.update(INSERT_Patient,
                 patient.getpFName(),
                 patient.getpLName(),
-                patient.getBirthday(),
+                localDate,
                 patient.getPhoneNumber(),
                 patient.getInsuranceProvider()
                 );
@@ -60,8 +63,8 @@ public class PatientRepoImpl implements PatientRepo{
 
     @Override
     public void updatePatient(Patient patient) {
-        final String UPDATE_Patient = "UPDATE student SET pFName = ?, pLName = ?, birthday = ?, phoneNumber = ?, insuranceProvider =? "
-                + "WHERE id = ?";
+        final String UPDATE_Patient = "UPDATE Patient SET pFName = ?, pLName = ?, birthday = ?, phoneNumber = ?, insuranceProvider =? "
+                + "WHERE PID = ?";
         jdbc.update(UPDATE_Patient,
                 patient.getpFName(),
                 patient.getpLName(),
@@ -83,23 +86,5 @@ public class PatientRepoImpl implements PatientRepo{
     }
 
 
-    public static final class PatientMapper implements RowMapper<Patient> {
 
-        @Override
-        public Patient mapRow(ResultSet rs, int index) throws SQLException {
-            Patient patient = new Patient();
-            patient.setPID(rs.getInt("PID"));
-            patient.setpFName(rs.getString("pFName"));
-            patient.setpLName(rs.getString("pLName"));
-
-            java.sql.Date dbSqlDate = rs.getDate("birthday");
-            java.util.Date dbSqlDateConverted = new java.util.Date(dbSqlDate.getTime());
-
-
-            patient.setBirthday(dbSqlDateConverted);
-            patient.setInsuranceProvider(rs.getString("insuranceProvider"));
-
-            return patient;
-        }
-    }
 }
