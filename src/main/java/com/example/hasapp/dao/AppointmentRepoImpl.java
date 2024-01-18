@@ -64,16 +64,16 @@ public class AppointmentRepoImpl implements AppointmentRepo{
     }
 
     @Override
-    public List<Appointment> getAppointmentForPatient(Patient patient) {
+    public List<Appointment> getAppointmentsByPatientId(int patientId) {
         final String sql = "SELECT * FROM Appointment WHERE PID = ?";
         return jdbcTemplate.query(sql,
-                new AppointmentMapper(), patient.getId());
+                new AppointmentMapper(), patientId);
     }
 
     @Override
-    public List<Appointment> getAppointmentForDoctor(Doctor doctor) {
+    public List<Appointment> getAppointmentsByDoctorId(int doctorId) {
         final String sql = "SELECT * FROM Appointment WHERE DID = ?";
         return jdbcTemplate.query(sql,
-                new AppointmentMapper(), doctor.getId());
+                new AppointmentMapper(), doctorId);
     }
 }
