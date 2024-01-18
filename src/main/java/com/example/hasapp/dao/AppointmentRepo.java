@@ -13,6 +13,6 @@ public interface AppointmentRepo {
     Appointment addAppointment(Appointment appointment);
     void updateAppointment(Appointment appointment);
     void deleteAppointmentById(int id);
-    List<Appointment> getAppointmentForPatient(Patient patient);
-    List<Appointment> getAppointmentForDoctor(Doctor doctor);
+    List<Appointment> getAppointmentsByPatientId(int patientId);
+    List<Appointment> getAppointmentsByDoctorId(int doctorId);
 }
