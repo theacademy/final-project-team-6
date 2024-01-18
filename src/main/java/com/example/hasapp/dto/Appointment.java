@@ -8,8 +8,10 @@ public class Appointment {
     private int patientId;
     private int doctorId;
     private LocalDateTime appointmentDateTime;
-    private String purpose;
     private String status;
+    private String note;
+
+    private Boolean hasPaid;
 
     public int getAppointmentId() {
         return appointmentId;
@@ -43,19 +45,27 @@ public class Appointment {
         this.appointmentDateTime = appointmentDateTime;
     }
 
-    public String getPurpose() {
-        return purpose;
-    }
-
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Boolean getHasPaid() {
+        return hasPaid;
+    }
+
+    public void setHasPaid(Boolean hasPaid) {
+        this.hasPaid = hasPaid;
     }
 }
