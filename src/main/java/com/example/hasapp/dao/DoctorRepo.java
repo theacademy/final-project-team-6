@@ -10,5 +10,5 @@ public interface DoctorRepo {
     Doctor getDoctorById(int id);
     Doctor addDoctor(Doctor doctor);
     void updateDoctor(Doctor doctor);
-    void deleteDoctorById(int id);
+    void deleteDoctor(int id);
 }

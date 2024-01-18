@@ -67,7 +67,7 @@ public class DoctorRepoImpl implements DoctorRepo{
 
     @Override
     @Transactional
-    public void deleteDoctorById(int id) {
+    public void deleteDoctor(int id) {
         final String DELETE_DOCTOR = "DELETE FROM Doctor WHERE DID = ?";
         jdbc.update(DELETE_DOCTOR, id);
 
