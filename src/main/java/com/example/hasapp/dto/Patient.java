@@ -23,7 +23,7 @@ public class Patient {
     private String pLName;
 
     @NotBlank(message = "Birthday must not be empty.")
-    private Date birthday;
+    private LocalDate birthday;
 
     @NotBlank(message = "Phone Number must not be empty.")
     @Size(max = 10, min = 10, message="Phone Number is not valid")
@@ -55,11 +55,11 @@ public class Patient {
         this.pLName = pLName;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
