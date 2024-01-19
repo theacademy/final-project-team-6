@@ -18,21 +18,21 @@ public class AppointmentRepoImpl implements AppointmentRepo{
     }
     @Override
     public List<Appointment> getAllAppointments() {
-    final String sql = "SELECT * FROM Appointment";
+    final String sql = "SELECT * FROM appointment";
     return jdbcTemplate.query(sql, new AppointmentMapper());
     }
 
     @Override
     public Appointment getAppointmentById(int id) {
-        final String sql = "SELECT * FROM Appointment " +
-                "Where AID = ?;";
+        final String sql = "SELECT * FROM appointment " +
+                "Where aid = ?;";
         return jdbcTemplate.queryForObject(sql, new AppointmentMapper(),id);
     }
 
     @Override
     @Transactional
     public Appointment addAppointment(Appointment appointment) {
-        final String sql ="INSERT INTO Appointment(PID, DID, AppointmentDateTime, status, note,hasPaid) " +
+        final String sql ="INSERT INTO appointment(pid, did, appointmentDateTime, status, note, hasPaid) " +
                 "VALUES(?,?,?,?,?,?)";
         jdbcTemplate.update(sql, appointment.getPatientId(),
                 appointment.getDoctorId(),
@@ -48,31 +48,32 @@ public class AppointmentRepoImpl implements AppointmentRepo{
     @Override
     @Transactional
     public void updateAppointment(Appointment appointment) {
-        final String sql = "UPDATE Appointment SET AppointmentDateTime = ?, status = ?, " +
-                "note = ?, hasPaid = ? WHERE AID = ?";
+        final String sql = "UPDATE appointment SET appointmentDateTime = ?, status = ?, " +
+                "note = ?, hasPaid = ? WHERE aid = ?";
         jdbcTemplate.update(sql, appointment.getAppointmentDateTime(),
                 appointment.getStatus(),
                 appointment.getNote(),
-                appointment.getHasPaid());
+                appointment.getHasPaid(),
+                appointment.getAppointmentId());
     }
 
     @Override
     @Transactional
     public void deleteAppointmentById(int id) {
-        final String sql = "DELETE FROM Appointment WHERE AID = ?";
+        final String sql = "DELETE FROM appointment WHERE aid = ?";
         jdbcTemplate.update(sql,id);
     }
 
     @Override
     public List<Appointment> getAppointmentsByPatientId(int patientId) {
-        final String sql = "SELECT * FROM Appointment WHERE PID = ?";
+        final String sql = "SELECT * FROM appointment WHERE pid = ?";
         return jdbcTemplate.query(sql,
                 new AppointmentMapper(), patientId);
     }
 
     @Override
     public List<Appointment> getAppointmentsByDoctorId(int doctorId) {
-        final String sql = "SELECT * FROM Appointment WHERE DID = ?";
+        final String sql = "SELECT * FROM appointment WHERE did = ?";
         return jdbcTemplate.query(sql,
                 new AppointmentMapper(), doctorId);
     }
