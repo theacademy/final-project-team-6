@@ -16,6 +16,11 @@ public class PatientService {
     @Autowired
     PatientRepoImpl patientDAO;
 
+
+    public PatientService(PatientRepoImpl patientDAO) {
+        this.patientDAO = patientDAO;
+    }
+
     public List<Patient> getAllPatients(){
         List<Patient> patients = patientDAO.getAllPatients();
         return patients;
