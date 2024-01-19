@@ -169,7 +169,7 @@ export default function Dashboard() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, minHeight: "100vh" }}>
             <Grid container spacing={3}>
-              {/* Chart */}
+              {/* Box 1 */}
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -180,7 +180,7 @@ export default function Dashboard() {
                   }}
                 ></Paper>
               </Grid>
-              {/* Recent Deposits */}
+              {/* Box 2 */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -191,7 +191,7 @@ export default function Dashboard() {
                   }}
                 ></Paper>
               </Grid>
-              {/* Recent Orders */}
+              {/* Box 3 */}
               <Grid item xs={12}>
                 <Paper
                   sx={{
