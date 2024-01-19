@@ -4,14 +4,14 @@ import com.example.hasapp.dto.Doctor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJdbcTest
+@SpringBootTest
 public class DoctorRepoImplTests {
 
     private JdbcTemplate jdbcTemplate;
