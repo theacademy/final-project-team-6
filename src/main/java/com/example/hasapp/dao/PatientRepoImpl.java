@@ -45,13 +45,13 @@ public class PatientRepoImpl implements PatientRepo{
     @Override
     public Patient addPatient(Patient patient) {
 
-        LocalDate localDate = LocalDate.parse( patient.getBirthday().toString()) ;
+
         final String INSERT_Patient = "INSERT INTO Patient(pFName, pLName, birthday, phoneNumber, insuranceProvider) "
                 + "VALUES(?,?,?,?,?)";
         jdbc.update(INSERT_Patient,
                 patient.getpFName(),
                 patient.getpLName(),
-                localDate,
+                patient.getBirthday(),
                 patient.getPhoneNumber(),
                 patient.getInsuranceProvider()
                 );
@@ -77,11 +77,15 @@ public class PatientRepoImpl implements PatientRepo{
     @Override
     @Transactional
     public void deletePatientById(int id) {
-        final String DELETE_PATIENT = "DELETE FROM Patient WHERE PID = ?";
-        jdbc.update(DELETE_PATIENT, id);
 
         final String DELETE_APPOINTMENT_PATIENT = "DELETE FROM Appointment WHERE PID = ?";
         jdbc.update(DELETE_APPOINTMENT_PATIENT, id);
+
+
+        final String DELETE_PATIENT = "DELETE FROM Patient WHERE PID = ?";
+        jdbc.update(DELETE_PATIENT, id);
+
+
 
     }
 

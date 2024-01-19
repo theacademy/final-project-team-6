@@ -18,7 +18,8 @@ public final class PatientMapper implements RowMapper<Patient> {
 
 
 
-        patient.setBirthday(rs.getDate("birthday").toLocalDate());
+        patient.setBirthday(rs.getString("birthday"));
+
         patient.setPhoneNumber(rs.getString("phoneNumber"));
         patient.setInsuranceProvider(rs.getString("insuranceProvider"));
 

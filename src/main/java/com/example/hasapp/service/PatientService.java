@@ -23,6 +23,12 @@ public class PatientService {
     }
 
     public Patient addPatient(Patient patient){
+
+        if(validatePatientInput(patient) == false){
+            return setError(patient);
+        }
+
+
         Patient addedPatient = patientDAO.addPatient(patient);
         return addedPatient;
 
@@ -32,6 +38,7 @@ public class PatientService {
         if (id != patient.getPID()) {
             patient.setpFName("IDs do not match, patient not updated");
             patient.setpLName("IDs do not match, patient not updated");
+            patient.setError("IDs do not match, patient not updated");
             return patient;
         }else {
             patientDAO.updatePatient(patient);
@@ -56,8 +63,51 @@ public class PatientService {
             patient.setPID(id);
             patient.setpFName("Patient Not Found");
             patient.setpLName("Patient Not Found");
+            patient.setError("Patient Not Found");
             return patient;
         }
         //YOUR CODE ENDS HERE
+    }
+
+
+    public boolean validatePatientInput(Patient patient){
+        if(patient.getpFName().isEmpty()){
+            return false;
+        }
+        else if(patient.getpLName().isEmpty()){
+            return false;
+        }
+        else if(patient.getBirthdayConverted() == null){
+            return false;
+        }
+        else if(patient.getPhoneNumber().length() != 10){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public Patient setError(Patient patient){
+        if(patient.getpFName().isEmpty()){
+            patient.setError("First name cannot be empty");
+            return patient;
+        }
+        else if(patient.getpLName().isEmpty()){
+            patient.setError("Last name cannot be empty");
+            return patient;
+        }
+        else if(patient.getBirthdayConverted() == null){
+            patient.setError("Birthday in wrong format, must be in yyyy-mm-dd format");
+            return patient;
+        }
+        else if(patient.getPhoneNumber().length() != 10){
+            patient.setError("Wrong phone number format, must be 10 digits, no dashes");
+            return patient;
+        }
+        else{
+            return patient;
+        }
+
     }
 }
