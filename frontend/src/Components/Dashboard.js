@@ -18,9 +18,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems } from "./DashboardComponents/listItems";
-// import Chart from "./Chart";
-// import Deposits from "./Deposits";
-// import Orders from "./Orders";
+import DoctorBox from "./DashboardComponents/DoctorBox.js";
 
 function Copyright(props) {
   return (
@@ -46,7 +44,7 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  backgroundColor: "#4CAF50",
+  backgroundColor: "#355828",
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -170,7 +168,7 @@ export default function Dashboard() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, minHeight: "100vh" }}>
             <Grid container spacing={3}>
               {/* Box 1 */}
-              <Grid item xs={12} md={8} lg={9}>
+              <Grid item xs={12} md={6} lg={6}>
                 <Paper
                   sx={{
                     p: 2,
@@ -181,15 +179,18 @@ export default function Dashboard() {
                 ></Paper>
               </Grid>
               {/* Box 2 */}
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12} md={6} lg={6}>
                 <Paper
                   sx={{
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 240,
+                    height: 340,
+                    backgroundColor: "#abd073",
                   }}
-                ></Paper>
+                >
+                  <DoctorBox />
+                </Paper>
               </Grid>
               {/* Box 3 */}
               <Grid item xs={12}>
