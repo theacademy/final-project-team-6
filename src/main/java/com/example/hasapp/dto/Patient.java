@@ -1,5 +1,6 @@
 package com.example.hasapp.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
@@ -25,6 +26,7 @@ public class Patient {
 
     private String birthday;
 
+    @JsonIgnore
     private LocalDate birthdayConverted;
 
 
@@ -70,15 +72,8 @@ public class Patient {
         return birthday;
     }
 
-    public void setBirthday(String birthdayFromJSON) {
-        this.birthday = birthdayFromJSON;
-    }
-
-    public LocalDate getBirthdayConverted() {
-        return birthdayConverted;
-    }
-
-    public void setBirthdayConverted() {
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
         try {
             this.birthdayConverted = LocalDate.parse(birthday);
         }
@@ -86,6 +81,12 @@ public class Patient {
             this.birthdayConverted = null;
         }
     }
+
+
+    public LocalDate getBirthdayConverted() {
+        return birthdayConverted;
+    }
+
 
     public String getPhoneNumber() {
         return phoneNumber;
