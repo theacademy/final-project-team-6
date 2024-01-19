@@ -14,10 +14,10 @@ import java.util.List;
 public class PatientService {
 
     @Autowired
-    PatientRepoImpl patientDAO;
+    PatientRepo patientDAO;
 
 
-    public PatientService(PatientRepoImpl patientDAO) {
+    public PatientService(PatientRepo patientDAO) {
         this.patientDAO = patientDAO;
     }
 
@@ -46,6 +46,9 @@ public class PatientService {
             patient.setError("IDs do not match, patient not updated");
             return patient;
         }else {
+            if(validatePatientInput(patient) == false){
+                return setError(patient);
+            }
             patientDAO.updatePatient(patient);
             return patient;
         }
