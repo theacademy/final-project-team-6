@@ -15,7 +15,7 @@ INSERT INTO patient (pFName, pLName, birthday, phoneNumber, insuranceProvider) V
 ('Frank', 'Taylor', '1982-11-05', '555-8765', 'TotalCare');
 
 -- data for appointments
-INSERT INTO appointment (appointmentDateTime, patientId, doctorId, status, note, hasPaid) VALUES
+INSERT INTO appointment (appointmentDateTime, pId, dId, status, note, hasPaid) VALUES
 ('2024-02-15', 1, 1, 'Scheduled', 'Regular checkup', true),
 ('2024-03-10', 2, 3, 'Completed', 'Follow-up appointment', true),
 ('2024-04-05', 3, 2, 'Scheduled', 'Initial consultation', false),
