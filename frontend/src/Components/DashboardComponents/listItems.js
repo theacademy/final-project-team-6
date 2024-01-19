@@ -3,42 +3,44 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PeopleIcon from "@mui/icons-material/People";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
+import BookOnlineIcon from "@mui/icons-material/BookOnline";
+import PersonIcon from "@mui/icons-material/Person";
+import Diversity1Icon from "@mui/icons-material/Diversity1";
+import Typography from "@mui/material/Typography";
 
 export const mainListItems = (
   <React.Fragment>
     <ListItemButton>
       <ListItemIcon>
-        <DashboardIcon />
+        <DashboardIcon sx={{ fontSize: "35px", color: "#7637A0" }} />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText>
+        <Typography variant="h6">Dashboard</Typography>
+      </ListItemText>
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <PersonIcon sx={{ fontSize: "35px", color: "#EBB93E" }} />
       </ListItemIcon>
-      <ListItemText primary="Patients" />
+      <ListItemText>
+        <Typography variant="h6">Patients</Typography>
+      </ListItemText>
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <PeopleIcon />
+        <Diversity1Icon sx={{ fontSize: "35px", color: "#98BC76" }} />
       </ListItemIcon>
-      <ListItemText primary="Providers" />
+      <ListItemText>
+        <Typography variant="h6">Providers</Typography>
+      </ListItemText>
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <BarChartIcon />
+        <BookOnlineIcon sx={{ fontSize: "35px", color: "#710C10" }} />
       </ListItemIcon>
-      <ListItemText primary="Appointments" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText>
+        <Typography variant="h6">Appointments</Typography>
+      </ListItemText>
     </ListItemButton>
   </React.Fragment>
 );

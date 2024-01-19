@@ -116,7 +116,7 @@ export default function Dashboard() {
                 ...(open && { display: "none" }),
               }}
             >
-              <MenuIcon />
+              <MenuIcon sx={{ fontSize: "35px" }} />
             </IconButton>
             <Typography
               component="h1"
@@ -130,7 +130,10 @@ export default function Dashboard() {
             <IconButton color="inherit">
               <Badge badgeContent={4} color="warning">
                 {/* <Badge badgeContent={4} style={{ color: "black" }}> */}
-                <NotificationsIcon style={{ color: "white" }} />
+                <NotificationsIcon
+                  style={{ color: "white" }}
+                  sx={{ fontSize: "35px" }}
+                />
               </Badge>
             </IconButton>
           </Toolbar>
@@ -145,7 +148,7 @@ export default function Dashboard() {
             }}
           >
             <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
+              <ChevronLeftIcon sx={{ fontSize: "35px" }} />
             </IconButton>
           </Toolbar>
           <Divider />
