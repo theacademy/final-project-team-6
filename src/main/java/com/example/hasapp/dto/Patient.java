@@ -3,8 +3,10 @@ package com.example.hasapp.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
 
@@ -14,22 +16,31 @@ public class Patient {
 
 
     private int PID;
-    @NotBlank(message = "First name must not be empty.")
-    @Size(max = 255, message="First name must be less than 255 characters.")
+
     private String pFName;
 
-    @NotBlank(message = "Last name must not be empty.")
-    @Size(max = 255, message="Last name must be less than 255 characters.")
+
     private String pLName;
 
-    @NotBlank(message = "Birthday must not be empty.")
-    private LocalDate birthday;
 
-    @NotBlank(message = "Phone Number must not be empty.")
-    @Size(max = 10, min = 10, message="Phone Number is not valid")
+    private String birthday;
+
+    private LocalDate birthdayConverted;
+
+
     private String phoneNumber;
 
     private String insuranceProvider;
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    private String error;
 
     public void setPID(int PID) {
         this.PID = PID;
@@ -55,12 +66,25 @@ public class Patient {
         this.pLName = pLName;
     }
 
-    public LocalDate getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
+    public void setBirthday(String birthdayFromJSON) {
+        this.birthday = birthdayFromJSON;
+    }
+
+    public LocalDate getBirthdayConverted() {
+        return birthdayConverted;
+    }
+
+    public void setBirthdayConverted() {
+        try {
+            this.birthdayConverted = LocalDate.parse(birthday);
+        }
+        catch (Exception e){
+            this.birthdayConverted = null;
+        }
     }
 
     public String getPhoneNumber() {
@@ -84,11 +108,11 @@ public class Patient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
-        return getPID() == patient.getPID() && Objects.equals(getpFName(), patient.getpFName()) && Objects.equals(getpLName(), patient.getpLName()) && Objects.equals(getBirthday(), patient.getBirthday()) && Objects.equals(getPhoneNumber(), patient.getPhoneNumber()) && Objects.equals(getInsuranceProvider(), patient.getInsuranceProvider());
+        return getPID() == patient.getPID() && Objects.equals(getpFName(), patient.getpFName()) && Objects.equals(getpLName(), patient.getpLName()) && Objects.equals(getBirthday(), patient.getBirthday()) && Objects.equals(getBirthdayConverted(), patient.getBirthdayConverted()) && Objects.equals(getPhoneNumber(), patient.getPhoneNumber()) && Objects.equals(getInsuranceProvider(), patient.getInsuranceProvider()) && Objects.equals(getError(), patient.getError());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPID(), getpFName(), getpLName(), getBirthday(), getPhoneNumber(), getInsuranceProvider());
+        return Objects.hash(getPID(), getpFName(), getpLName(), getBirthday(), getBirthdayConverted(), getPhoneNumber(), getInsuranceProvider(), getError());
     }
 }
