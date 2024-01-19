@@ -19,7 +19,7 @@ public class AppointmentController {
     public List<Appointment> getAllAppointments(){
         return appointmentService.getAllAppointments();
     }
-    @GetMapping("/{id})")
+    @GetMapping("/{id}")
     public Appointment getAppointmentById(@PathVariable int id){
         return appointmentService.getAppointmentById(id);
     }
@@ -45,4 +45,4 @@ public class AppointmentController {
     public void deleteAppointment(@PathVariable int id) {
         appointmentService.deleteAppointmentById(id);
     }
-}
+    }
