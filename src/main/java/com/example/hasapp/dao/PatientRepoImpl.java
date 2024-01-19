@@ -19,8 +19,14 @@ import java.util.List;
 public class PatientRepoImpl implements PatientRepo{
 
 
+
+
     @Autowired
-    JdbcTemplate jdbc;
+    private final JdbcTemplate jdbc;
+
+    public PatientRepoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbc = jdbcTemplate;
+    }
 
     @Override
     public Patient getPatientById(int id) {

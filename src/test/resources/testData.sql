@@ -8,11 +8,11 @@ INSERT INTO doctor (dFName, dLName, specialty, officeNumber) VALUES
 
 -- data for patients
 INSERT INTO patient (pFName, pLName, birthday, phoneNumber, insuranceProvider) VALUES
-('Alice', 'Johnson', '1990-05-15', '555-1234', 'HealthCare Inc'),
-('Bob', 'Williams', '1985-08-20', '555-5678', 'MedicalGuard'),
-('Charlie', 'Davis', '1978-12-10', '555-9876', 'WellnessFirst'),
-('Eva', 'Miller', '1995-03-25', '555-4321', 'MediLife'),
-('Frank', 'Taylor', '1982-11-05', '555-8765', 'TotalCare');
+('Alice', 'Johnson', '1990-05-15', '8045551234', 'HealthCare Inc'),
+('Bob', 'Williams', '1985-08-20', '8045555678', 'MedicalGuard'),
+('Charlie', 'Davis', '1978-12-10', '8045559876', 'WellnessFirst'),
+('Eva', 'Miller', '1995-03-25', '8045554321', 'MediLife'),
+('Frank', 'Taylor', '1982-11-05', '8045558765', 'TotalCare');
 
 -- data for appointments
 INSERT INTO appointment (appointmentDateTime, pId, dId, status, note, hasPaid) VALUES
