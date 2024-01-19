@@ -1,8 +1,7 @@
 package com.example.hasapp.dao;
 
 import com.example.hasapp.dto.Doctor;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,6 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DoctorRepoImplTests {
 
     private JdbcTemplate jdbcTemplate;
@@ -25,20 +25,7 @@ public class DoctorRepoImplTests {
     }
 
     @Test
-    @DisplayName("Create new Doctor Test")
-    public void createNewDoctorTest() {
-        Doctor doctor = new Doctor();
-        doctor.setDFName("John");
-        doctor.setDLName("Doe");
-        doctor.setSpecialty("Cardiology");
-        doctor.setOfficeNumber("Room 101");
-        doctorDao.addDoctor(doctor);
-        List<Doctor> doctors = doctorDao.getAllDoctors();
-        assertNotNull(doctors);
-        assertEquals(6, doctors.size());
-    }
-
-    @Test
+    @Order(1)
     @DisplayName("Get All Doctors Test")
     public void getAllDoctorsTest() {
         List<Doctor> newList = doctorDao.getAllDoctors();
@@ -47,6 +34,7 @@ public class DoctorRepoImplTests {
     }
 
     @Test
+    @Order(2)
     @DisplayName("Find A Doctor By ID: 3 Test")
     public void findDoctorByID3Test() {
         Doctor doctor = doctorDao.getDoctorById(3);
@@ -55,6 +43,7 @@ public class DoctorRepoImplTests {
     }
 
     @Test
+    @Order(3)
     @DisplayName("Update Doctor Info Test")
     public void updateDoctorInfoTest() {
         Doctor doctor = new Doctor();
@@ -86,6 +75,7 @@ public class DoctorRepoImplTests {
     }
 
     @Test
+    @Order(4)
     @DisplayName("Delete a Doctor Test")
     public void deleteADoctorTest() {
         doctorDao.deleteDoctor(4);
@@ -93,4 +83,20 @@ public class DoctorRepoImplTests {
         assertNotNull(newList);
         assertEquals(4, newList.size());
     }
+
+    @Test
+    @Order(5)
+    @DisplayName("Create new Doctor Test")
+    public void createNewDoctorTest() {
+        Doctor doctor = new Doctor();
+        doctor.setDFName("John");
+        doctor.setDLName("Doe");
+        doctor.setSpecialty("Cardiology");
+        doctor.setOfficeNumber("Room 101");
+        doctorDao.addDoctor(doctor);
+        List<Doctor> doctors = doctorDao.getAllDoctors();
+        assertNotNull(doctors);
+        assertEquals(5, doctors.size());
+    }
+
 }

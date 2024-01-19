@@ -70,11 +70,17 @@ public class DoctorRepoImpl implements DoctorRepo{
     @Override
     @Transactional
     public void deleteDoctor(int id) {
+        // Delete associated appointments first
+        deleteAppointmentsByDoctorId(id);
+
+        // Then delete the doctor
         final String DELETE_DOCTOR = "DELETE FROM Doctor WHERE DID = ?";
         jdbcTemplate.update(DELETE_DOCTOR, id);
+    }
 
+    private void deleteAppointmentsByDoctorId(int doctorId) {
         final String DELETE_APPOINTMENT_DOCTOR = "DELETE FROM Appointment WHERE DID = ?";
-        jdbcTemplate.update(DELETE_APPOINTMENT_DOCTOR, id);
+        jdbcTemplate.update(DELETE_APPOINTMENT_DOCTOR, doctorId);
     }
 
 }
