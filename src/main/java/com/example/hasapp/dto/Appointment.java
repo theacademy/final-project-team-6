@@ -12,6 +12,8 @@ public class Appointment {
     private String note;
 
     private Boolean hasPaid;
+    private String error;
+
 
     public int getAppointmentId() {
         return appointmentId;
@@ -68,4 +70,15 @@ public class Appointment {
     public void setHasPaid(Boolean hasPaid) {
         this.hasPaid = hasPaid;
     }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+
+
 }
