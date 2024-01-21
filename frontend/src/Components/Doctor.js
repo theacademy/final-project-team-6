@@ -19,6 +19,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems } from "./DashboardComponents/listItems";
 import DoctorBox from "./DashboardComponents/doctorBox";
+import DoctorManagement from "./DoctorComponent/DoctorManagement";
 
 function Copyright(props) {
   return (
@@ -166,44 +167,7 @@ export default function Dashboard() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, minHeight: "100vh" }}>
-            <Grid container spacing={3}>
-              {/* Patients Box */}
-              <Grid item xs={12} md={6} lg={6}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                  }}
-                ></Paper>
-              </Grid>
-              {/* Doctor Box */}
-              <Grid item xs={12} md={6} lg={6}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 340,
-                    backgroundColor: "#355828",
-                  }}
-                >
-                  <DoctorBox />
-                </Paper>
-              </Grid>
-              {/* Appointment Box */}
-              <Grid item xs={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                  }}
-                ></Paper>
-              </Grid>
-            </Grid>
+            <DoctorManagement />
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
