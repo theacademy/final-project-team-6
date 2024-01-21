@@ -42,6 +42,7 @@ const DoctorBox = () => {
                   padding: "16px",
                   borderRadius: "8px",
                   textAlign: "left",
+                  backgroundColor: "white",
 
                   marginBottom: "1px",
                 }}
