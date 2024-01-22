@@ -46,7 +46,7 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  backgroundColor: "#355828",
+  backgroundColor: "#000",
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -156,15 +156,16 @@ export default function Dashboard() {
         </Drawer>
         <Box
           component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: "100vh",
-            overflow: "auto",
-          }}
+          // sx={{
+          //   backgroundColor: (theme) =>
+          //     theme.palette.mode === "light"
+          //       ? theme.palette.grey[100]
+          //       : theme.palette.grey[900],
+          //   flexGrow: 1,
+          //   height: "100vh",
+          //   overflow: "auto",
+          // }}
+          className="background-container"
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, minHeight: "100vh" }}>
@@ -177,6 +178,7 @@ export default function Dashboard() {
                     display: "flex",
                     flexDirection: "column",
                     height: "100%",
+                    backgroundColor: "#f2f2f2",
                   }}
                 >
                   <PatientBox />
@@ -190,7 +192,7 @@ export default function Dashboard() {
                     display: "flex",
                     flexDirection: "column",
                     height: 340,
-                    backgroundColor: "#355828",
+                    backgroundColor: "#f2f2f2",
                   }}
                 >
                   <DoctorBox />
