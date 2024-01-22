@@ -32,7 +32,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/api/dashboard/*", "GET")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/dashboard", "POST")).authenticated()
                         .requestMatchers(new AntPathRequestMatcher("/api/dashboard/*", "PUT")).authenticated()*/
-                        .anyRequest().denyAll()
+                        .anyRequest().permitAll()
                 )
                 .addFilter(new JwtRequestFilter(authenticationManager(authConfig), jwtConverter))
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
