@@ -24,7 +24,7 @@ export const mainListItems = (
         </Typography>
       </ListItemText>
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component={RouterLink} to="/patient">
       <ListItemIcon>
         <PersonIcon sx={{ fontSize: "35px", color: "#EBB93E" }} />
       </ListItemIcon>

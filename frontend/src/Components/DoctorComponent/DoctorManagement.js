@@ -159,8 +159,13 @@ const DoctorManagement = () => {
   return (
     <Paper
       elevation={3}
-      style={{ padding: "25px", marginTop: "16px" }}
-      sx={{ backgroundColor: "#355828" }}
+      style={{
+        padding: "25px",
+        marginTop: "16px",
+        height: "850px",
+        overflowY: "auto",
+      }}
+      sx={{ backgroundColor: "black" }}
     >
       <Typography variant="h5" sx={{ color: "white" }} gutterBottom>
         Provider Management
@@ -169,7 +174,7 @@ const DoctorManagement = () => {
           onClick={openAddModal}
           style={{ marginLeft: "8px" }}
         >
-          <AddBoxIcon style={{ fontSize: 35, color: "#4CAF50" }} />
+          <AddBoxIcon style={{ fontSize: 35, color: "green" }} />
         </IconButton>
       </Typography>
       <Divider style={{ marginBottom: "16px" }} />
@@ -184,10 +189,10 @@ const DoctorManagement = () => {
                 textAlign: "left",
               }}
             >
-              <Typography variant="subtitle1" gutterBottom>
+              <Typography variant="h6" gutterBottom>
                 {`${doctor.dfname} ${doctor.dlname}`}
               </Typography>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="subtitle1" color="textSecondary">
                 {doctor.specialty}
               </Typography>
               <Button
