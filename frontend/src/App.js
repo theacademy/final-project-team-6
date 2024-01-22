@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./Components/Dashboard";
 import Doctor from "./Components/Doctor";
 import Patient from "./Components/Patient";
-import AppointmentPage from "./Components/AppointmentComponent/view/appointment-view";
+import Appointments from "./Components/Appointments";
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/doctor" element={<Doctor />} />
         <Route path="/patient" element={<Patient />} />
-        <Route path="/appointments" element={<AppointmentPage />} />
+        <Route path="/appointments" element={<Appointments />} />
 
       </Routes>
     </Router>

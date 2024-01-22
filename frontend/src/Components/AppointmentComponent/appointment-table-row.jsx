@@ -38,6 +38,25 @@ export default function AppointmentTableRow({
     setOpen(null);
   };
 
+
+  const getColor = (status) => {
+    if (typeof status === 'boolean') {
+      status = status ? 'Yes' : 'No';
+    }
+  
+    if (status === 'Completed' || status === 'Yes') {
+      return 'success';
+    }
+    
+    switch (status) {
+      case 'No':
+        return 'error';
+      case 'Scheduled':
+        return 'info';
+      default:
+        return 'default';
+    }
+  };
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
@@ -57,10 +76,12 @@ export default function AppointmentTableRow({
         <TableCell>{appointmentDate}</TableCell>
         <TableCell>{appointmentTime}</TableCell>
         <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
+          <Label color={getColor(status)}>{status}</Label>
         </TableCell>
         <TableCell>{note}</TableCell>
-        <TableCell align="center">{hasPaid ? 'Yes' : 'No'}</TableCell>
+        <TableCell align="center">
+          <Label color={getColor(hasPaid)}>{hasPaid ? 'Yes' : 'No'}</Label>
+        </TableCell>
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
             <Iconify icon="eva:more-vertical-fill" />
