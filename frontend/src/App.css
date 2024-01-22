@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.background-container {
+  background-color: #f4f4f4;
+  flex-grow: 1;
+  height: 100vh;
+  overflow: auto;
+  background-image: url("../public/background.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
