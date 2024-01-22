@@ -41,11 +41,22 @@ function Copyright(props) {
 
 const drawerWidth = 300;
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#000000", // Green #375d35
+    },
+    background: {
+      default: "#f4f4f4", // Light Gray
+    },
+  },
+});
+
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  backgroundColor: "#355828",
+  backgroundColor: theme.palette.primary.main,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -66,6 +77,7 @@ const Drawer = styled(MuiDrawer, {
   "& .MuiDrawer-paper": {
     position: "relative",
     whiteSpace: "nowrap",
+    backgroundColor: theme.palette.primary.main,
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -79,6 +91,7 @@ const Drawer = styled(MuiDrawer, {
         duration: theme.transitions.duration.leavingScreen,
       }),
       width: theme.spacing(7),
+      backgroundColor: theme.palette.primary.main, // Use primary color when closed
       [theme.breakpoints.up("sm")]: {
         width: theme.spacing(9),
       },
@@ -86,7 +99,6 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
@@ -96,7 +108,7 @@ export default function Dashboard() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -107,28 +119,27 @@ export default function Dashboard() {
           >
             <IconButton
               edge="start"
-              color="inherit"
               aria-label="open drawer"
               onClick={toggleDrawer}
               sx={{
                 marginRight: "36px",
                 ...(open && { display: "none" }),
+                color: "white",
               }}
             >
-              <MenuIcon sx={{ fontSize: "35px" }} />
+              <MenuIcon sx={{ fontSize: "35px", color: "white" }} />
             </IconButton>
             <Typography
               component="h1"
               variant="h5"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
             >
               Hospital Scheduling System
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="warning">
-                {/* <Badge badgeContent={4} style={{ color: "black" }}> */}
                 <NotificationsIcon
                   style={{ color: "white" }}
                   sx={{ fontSize: "35px" }}
@@ -137,6 +148,7 @@ export default function Dashboard() {
             </IconButton>
           </Toolbar>
         </AppBar>
+
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -147,7 +159,7 @@ export default function Dashboard() {
             }}
           >
             <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon sx={{ fontSize: "35px" }} />
+              <ChevronLeftIcon sx={{ fontSize: "35px", color: "white" }} />
             </IconButton>
           </Toolbar>
           <Divider />
@@ -156,17 +168,14 @@ export default function Dashboard() {
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+            backgroundColor: theme.palette.background.default,
             flexGrow: 1,
             height: "100vh",
             overflow: "auto",
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, minHeight: "100vh" }}>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, minHeight: "90vh" }}>
             <DoctorManagement />
             <Copyright sx={{ pt: 4 }} />
           </Container>
