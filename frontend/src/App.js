@@ -4,13 +4,14 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./Components/Dashboard";
 import Doctor from "./Components/Doctor";
-
+import AppointmentPage from "./Components/AppointmentComponent/view/appointment-view";
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/doctor" element={<Doctor />} />
+        <Route path="/appointments" element={<AppointmentPage />} />
       </Routes>
     </Router>
   );

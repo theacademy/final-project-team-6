@@ -44,7 +44,7 @@ export const mainListItems = (
         </Typography>
       </ListItemText>
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component={RouterLink} to="/appointments">
       <ListItemIcon>
         <BookOnlineIcon sx={{ fontSize: "35px", color: "#710C10" }} />
       </ListItemIcon>
