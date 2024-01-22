@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class DoctorRepoImplTests {
 
     @Test
     @Order(1)
+    @Sql({"/testSchema.sql", "/testData.sql"})
     @DisplayName("Get All Doctors Test")
     public void getAllDoctorsTest() {
         List<Doctor> newList = doctorDao.getAllDoctors();
@@ -35,6 +37,7 @@ public class DoctorRepoImplTests {
 
     @Test
     @Order(2)
+    @Sql({"/testSchema.sql", "/testData.sql"})
     @DisplayName("Find A Doctor By ID: 3 Test")
     public void findDoctorByID3Test() {
         Doctor doctor = doctorDao.getDoctorById(3);
@@ -44,6 +47,7 @@ public class DoctorRepoImplTests {
 
     @Test
     @Order(3)
+    @Sql({"/testSchema.sql", "/testData.sql"})
     @DisplayName("Update Doctor Info Test")
     public void updateDoctorInfoTest() {
         Doctor doctor = new Doctor();
@@ -76,6 +80,7 @@ public class DoctorRepoImplTests {
 
     @Test
     @Order(4)
+    @Sql({"/testSchema.sql", "/testData.sql"})
     @DisplayName("Delete a Doctor Test")
     public void deleteADoctorTest() {
         doctorDao.deleteDoctor(4);
@@ -86,6 +91,7 @@ public class DoctorRepoImplTests {
 
     @Test
     @Order(5)
+    @Sql({"/testSchema.sql", "/testData.sql"})
     @DisplayName("Create new Doctor Test")
     public void createNewDoctorTest() {
         Doctor doctor = new Doctor();
@@ -96,7 +102,7 @@ public class DoctorRepoImplTests {
         doctorDao.addDoctor(doctor);
         List<Doctor> doctors = doctorDao.getAllDoctors();
         assertNotNull(doctors);
-        assertEquals(5, doctors.size());
+        assertEquals(6, doctors.size());
     }
 
 }
