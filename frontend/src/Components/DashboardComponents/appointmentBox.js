@@ -12,12 +12,12 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-/* async function fetchPatient(patientId) {
+async function fetchPatient(patientId) {
   const response = await fetch(`http://localhost:8080/patients/${patientId}`);
   const data = await response.json();
   const name = data.pFName + " " + data.pLName;
   return name;
-} */
+}
 
 async function fetchDoctor(doctorId) {
   const response = await fetch(`http://localhost:8080/doctor/${doctorId}`);
@@ -43,9 +43,9 @@ export default function AppointmentTable() {
       // Fetch additional details for each appointment
       const enrichedData = await Promise.all(
         data.map(async (row) => {
-       // const patientName = await fetchPatient(row.patientId);
+          const patientName = await fetchPatient(row.patientId);
           const doctorName = await fetchDoctor(row.doctorId);
-          return { ...row, doctorName };
+          return { ...row, patientName, doctorName };
         })
       );
 
@@ -80,7 +80,7 @@ export default function AppointmentTable() {
           {rows.map((row) => (
             <TableRow key={row.appointmentId}>
               <TableCell>{row.appointmentId}</TableCell>
-              <TableCell>{row.patientId}</TableCell>
+              <TableCell>{row.patientName}</TableCell>
               <TableCell>{row.doctorName}</TableCell>
               <TableCell>
                 {moment(row.appointmentDateTime).format("MM/DD/YYYY")}
