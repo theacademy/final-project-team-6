@@ -19,6 +19,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems } from "./DashboardComponents/listItems";
 import DoctorBox from "./DashboardComponents/doctorBox";
+import AppointmentBox from "./DashboardComponents/appointmentBox";
 
 function Copyright(props) {
   return (
@@ -201,7 +202,9 @@ export default function Dashboard() {
                     flexDirection: "column",
                     height: "100%",
                   }}
-                ></Paper>
+                >
+                  <AppointmentBox />
+                </Paper>
               </Grid>
             </Grid>
             <Copyright sx={{ pt: 4 }} />
