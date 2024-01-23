@@ -1,20 +1,41 @@
 async function fetchPatient(patientId) {
-  const response = await fetch(`http://localhost:8080/patients/${patientId}`);
+  const token = localStorage.getItem("jwt_token");
+
+  const response = await fetch(`http://localhost:8080/patients/${patientId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   const data = await response.json();
-  const name = data.pFName + " " + data.pLName;
+  const name = data.firstName + " " + data.lastName;
   return name;
 }
 
 async function fetchDoctor(doctorId) {
-  const response = await fetch(`http://localhost:8080/doctor/${doctorId}`);
+  const token = localStorage.getItem("jwt_token");
+
+  const response = await fetch(`http://localhost:8080/doctor/${doctorId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   const data = await response.json();
-  const name = data.dfname + " " + data.dlname;
+  const name = data.firstName + " " + data.lastName;
   return name;
 }
 
 export const fetchPatients = async () => {
+  const token = localStorage.getItem("jwt_token");
+
   try {
-    const response = await fetch("http://localhost:8080/patients");
+    const response = await fetch("http://localhost:8080/patients", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (!response.ok) {
       throw new Error("Failed to fetch patients");
     }
@@ -27,8 +48,15 @@ export const fetchPatients = async () => {
 };
 
 export const fetchDoctors = async () => {
+  const token = localStorage.getItem("jwt_token");
+
   try {
-    const response = await fetch("http://localhost:8080/doctor/doctors");
+    const response = await fetch("http://localhost:8080/doctor/doctors", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (!response.ok) {
       throw new Error("Failed to fetch doctors");
     }
@@ -41,9 +69,17 @@ export const fetchDoctors = async () => {
 };
 
 const fetchAppointments = async () => {
+  const token = localStorage.getItem("jwt_token");
+
   try {
     const response = await fetch(
-      "http://localhost:8080/appointment/appointments"
+      "http://localhost:8080/appointment/appointments",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     if (!response.ok) {
       throw new Error("Failed to fetch appointments");

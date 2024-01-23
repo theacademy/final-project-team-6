@@ -130,6 +130,8 @@ export default function AppointmentPage() {
 
     const handleSubmitNewAppointment = async (event) => {
         event.preventDefault();
+        const token = localStorage.getItem('jwt_token');
+
         const appointmentDateTime = `${newAppointment.date}T${newAppointment.time}:00`;
         const appointmentData = {
             patientId: newAppointment.patientId,
@@ -145,6 +147,7 @@ export default function AppointmentPage() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(appointmentData),
             });
@@ -191,9 +194,16 @@ export default function AppointmentPage() {
     };
 
     const confirmDeleteSelected = async () => {
+        const token = localStorage.getItem('jwt_token');
+
         try {
             for (let id of selected) {
-                await fetch(`http://localhost:8080/appointment/${id}`, { method: 'DELETE' });
+                await fetch(`http://localhost:8080/appointment/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                });
             }
             // Refresh the appointments list after deletion
             const updatedAppointments = await fetchAppointments();
