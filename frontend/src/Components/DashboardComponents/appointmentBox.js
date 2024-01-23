@@ -15,14 +15,28 @@ function preventDefault(event) {
 }
 
 async function fetchPatient(patientId) {
-  const response = await fetch(`http://localhost:8080/patients/${patientId}`);
+  const token = localStorage.getItem('jwt_token');
+
+  const response = await fetch(`http://localhost:8080/patients/${patientId}`, {
+    method: "GET",
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+    });
   const data = await response.json();
   const name = data.pFName + " " + data.pLName;
   return name;
 }
 
 async function fetchDoctor(doctorId) {
-  const response = await fetch(`http://localhost:8080/doctor/${doctorId}`);
+  const token = localStorage.getItem('jwt_token');
+
+  const response = await fetch(`http://localhost:8080/doctor/${doctorId}`, {
+    method: "GET",
+    headers: {
+      'Authorization': `Bearer ${token}`
+    },
+  });  
   const data = await response.json();
   const name = data.dfname + " " + data.dlname;
   return name;
@@ -32,9 +46,17 @@ export default function AppointmentTable() {
   const [rows, setRows] = React.useState([]);
 
   const fetchAppointments = async () => {
+    const token = localStorage.getItem('jwt_token');
+
     try {
       const response = await fetch(
-        "http://localhost:8080/appointment/appointments"
+        "http://localhost:8080/appointment/appointments",
+        {
+          method: "GET",
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+        }
       );
       if (!response.ok) {
         throw new Error("Failed to fetch appointments");

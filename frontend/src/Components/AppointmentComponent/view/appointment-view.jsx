@@ -143,12 +143,14 @@ export default function AppointmentPage() {
       note: newAppointment.note,
       hasPaid: newAppointment.hasPaid === "yes",
     };
+    const token = localStorage.getItem('jwt_token');
 
     try {
       const response = await fetch("http://localhost:8080/appointment/add", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(appointmentData),
       });
@@ -196,10 +198,15 @@ export default function AppointmentPage() {
   };
 
   const confirmDeleteSelected = async () => {
+    const token = localStorage.getItem('jwt_token');
+
     try {
       for (let id of selected) {
         await fetch(`http://localhost:8080/appointment/${id}`, {
           method: "DELETE",
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
         });
       }
       // Refresh the appointments list after deletion

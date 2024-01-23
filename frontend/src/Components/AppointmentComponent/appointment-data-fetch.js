@@ -1,10 +1,9 @@
 async function fetchPatient(patientId) {
-  const token = localStorage.getItem("jwt_token");
-
+  const token = localStorage.getItem('jwt_token');
   const response = await fetch(`http://localhost:8080/patients/${patientId}`, {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${token}`,
+      'Authorization': `Bearer ${token}`
     },
   });
   const data = await response.json();
@@ -13,12 +12,12 @@ async function fetchPatient(patientId) {
 }
 
 async function fetchDoctor(doctorId) {
-  const token = localStorage.getItem("jwt_token");
+  const token = localStorage.getItem('jwt_token');
 
   const response = await fetch(`http://localhost:8080/doctor/${doctorId}`, {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${token}`,
+      'Authorization': `Bearer ${token}`
     },
   });
   const data = await response.json();
@@ -27,13 +26,13 @@ async function fetchDoctor(doctorId) {
 }
 
 export const fetchPatients = async () => {
-  const token = localStorage.getItem("jwt_token");
+  const token = localStorage.getItem('jwt_token');
 
   try {
     const response = await fetch("http://localhost:8080/patients", {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`
       },
     });
     if (!response.ok) {
@@ -48,13 +47,13 @@ export const fetchPatients = async () => {
 };
 
 export const fetchDoctors = async () => {
-  const token = localStorage.getItem("jwt_token");
+  const token = localStorage.getItem('jwt_token');
 
   try {
     const response = await fetch("http://localhost:8080/doctor/doctors", {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`
       },
     });
     if (!response.ok) {
@@ -69,7 +68,7 @@ export const fetchDoctors = async () => {
 };
 
 const fetchAppointments = async () => {
-  const token = localStorage.getItem("jwt_token");
+  const token = localStorage.getItem('jwt_token');
 
   try {
     const response = await fetch(
@@ -77,7 +76,7 @@ const fetchAppointments = async () => {
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`
         },
       }
     );

@@ -6,8 +6,15 @@ const DoctorBox = () => {
 
   // Fetch doctors from backend
   const fetchDoctors = async () => {
+    const token = localStorage.getItem('jwt_token');
+
     try {
-      const response = await fetch("http://localhost:8080/doctor/doctors");
+      const response = await fetch("http://localhost:8080/doctor/doctors", {
+        method: "GET",
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch doctors");
       }
