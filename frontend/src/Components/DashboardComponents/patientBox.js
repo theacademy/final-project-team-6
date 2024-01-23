@@ -26,7 +26,7 @@ const PatientBox = () => {
   return (
     <Paper
       elevation={3}
-      style={{ padding: "16px", marginTop: "16px", backgroundColor: "#fbfaf8" }}
+      style={{ padding: "16px", marginTop: "16px", backgroundColor: "#f7f7f7" }}
     >
       <Typography variant="h6" gutterBottom>
         Patients
