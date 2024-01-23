@@ -32,14 +32,8 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> auth
-                                .requestMatchers(new AntPathRequestMatcher("/api/login", "POST")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/register", "POST")).permitAll()
- /*                     .requestMatchers(new AntPathRequestMatcher("/api/refresh-token", "POST")).authenticated()
-                        .requestMatchers(new AntPathRequestMatcher("/api/dashboard", "GET")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/api/dashboard/*", "GET")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/api/dashboard", "POST")).authenticated()
-                        .requestMatchers(new AntPathRequestMatcher("/api/dashboard/*", "PUT")).authenticated()*/
-                                .anyRequest().permitAll()
+                        .requestMatchers("/api/login", "/api/register").permitAll() // Allow public access to login and register
+                        .anyRequest().authenticated() // All other requests need authentication
                 )
                 .addFilter(new JwtRequestFilter(authenticationManager(authConfig), jwtConverter))
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

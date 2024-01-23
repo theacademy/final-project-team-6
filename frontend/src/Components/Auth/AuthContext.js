@@ -24,12 +24,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (localStorage.getItem("jwt_token")) {
       login();
     } else {
+      setIsAuthenticated(false);
       setCurrentUser(null);
     }
-  }, [isAuthenticated]);
+  }, []);
 
   const logout = () => {
     localStorage.removeItem("jwt_token");
