@@ -7,6 +7,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Title from "./Title";
 import moment from "moment";
+import { Typography, Paper, Divider } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -62,51 +64,65 @@ export default function AppointmentTable() {
 
   return (
     <React.Fragment>
-      <Title>Recent Appointments</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Appointment ID</TableCell>
-            <TableCell>Patient</TableCell>
-            <TableCell>Doctor</TableCell>
-            <TableCell>Appointment Date</TableCell>
-            <TableCell>Appointment Time</TableCell>
-            <TableCell>Appointment Status</TableCell>
-            <TableCell>Appointment Note</TableCell>
-            <TableCell align="right">Payment</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.appointmentId}>
-              <TableCell>{row.appointmentId}</TableCell>
-              <TableCell>{row.patientName}</TableCell>
-              <TableCell>{row.doctorName}</TableCell>
-              <TableCell>
-                {moment(row.appointmentDateTime).format("MM/DD/YYYY")}
-              </TableCell>
-              <TableCell>
-                {moment(row.appointmentDateTime).format("hh:mm A")}
-              </TableCell>
-              <TableCell>{row.status}</TableCell>
-              <TableCell>{row.note}</TableCell>
-              <TableCell align="right">
-                {row.hasPaid ? "Paid" : "Not Paid"}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-
-      <div
-        sx={{
-          marginTop: (theme) => theme.spacing(3),
+      <Paper
+        elevation={3}
+        style={{
+          padding: "16px",
+          marginTop: "16px",
+          backgroundColor: "#f7f7f7",
         }}
       >
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more orders
-        </Link>
-      </div>
+        <Typography variant="h6" gutterBottom>
+          Appointments
+        </Typography>
+        <Divider style={{ marginBottom: "16px" }} />
+        <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+          <Table size="small" style={{ marginBottom: "10px" }}>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Patient</TableCell>
+                <TableCell>Doctor</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Time</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Note</TableCell>
+                <TableCell align="right">Payment</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow key={row.appointmentId}>
+                  <TableCell>{row.appointmentId}</TableCell>
+                  <TableCell>{row.patientName}</TableCell>
+                  <TableCell>{row.doctorName}</TableCell>
+                  <TableCell>
+                    {moment(row.appointmentDateTime).format("MM/DD/YYYY")}
+                  </TableCell>
+                  <TableCell>
+                    {moment(row.appointmentDateTime).format("hh:mm A")}
+                  </TableCell>
+                  <TableCell>{row.status}</TableCell>
+                  <TableCell>{row.note}</TableCell>
+                  <TableCell align="right">
+                    {row.hasPaid ? "Paid" : "Not Paid"}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+
+          <div
+            sx={{
+              marginTop: (theme) => theme.spacing(3),
+            }}
+          >
+            <Link color="primary" component={RouterLink} to="/appointments">
+              See More Appointments
+            </Link>
+          </div>
+        </div>
+      </Paper>
     </React.Fragment>
   );
 }
