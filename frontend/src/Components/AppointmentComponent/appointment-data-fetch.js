@@ -12,6 +12,34 @@ async function fetchDoctor(doctorId) {
   return name;
 }
 
+export const fetchPatients = async () => {
+  try {
+    const response = await fetch("http://localhost:8080/patients");
+    if (!response.ok) {
+      throw new Error("Failed to fetch patients");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching patients:", error);
+    return [];
+  }
+};
+
+export const fetchDoctors = async () => {
+  try {
+    const response = await fetch("http://localhost:8080/doctor/doctors");
+    if (!response.ok) {
+      throw new Error("Failed to fetch doctors");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+    return [];
+  }
+};
+
 const fetchAppointments = async () => {
   try {
     const response = await fetch(

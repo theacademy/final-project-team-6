@@ -117,7 +117,6 @@ export default function AppointmentTableRow({
   const handleEditConfirm = async () => {
 
     const combinedDateTime = `${newDetails.newDate}T${newDetails.newTime}:00`;
-    console.log("Updating with new details:", newDetails);
 
     if (!newDetails.doctorId || isNaN(newDetails.doctorId) || newDetails.doctorId <= 0) {
       alert('Invalid doctor ID. Please enter a valid ID.');
@@ -163,6 +162,15 @@ export default function AppointmentTableRow({
     setNewDetails({ ...newDetails, newHasPaid: event.target.value === 'Yes' });
   };
 
+  const formatDate = (isoString) => {
+    return new Date(isoString).toLocaleDateString();
+  };
+
+  const formatTime = (isoString) => {
+    return new Date(isoString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
+
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
@@ -179,8 +187,9 @@ export default function AppointmentTableRow({
         </TableCell>
         <TableCell>{patientName}</TableCell>
         <TableCell>{doctorName}</TableCell>
-        <TableCell>{appointmentDate}</TableCell>
-        <TableCell>{appointmentTime}</TableCell>
+        <TableCell>{formatDate(appointmentDate)}</TableCell>
+        <TableCell>{formatTime(appointmentDate)}</TableCell>
+
         <TableCell>
           <Label color={getColor(status)}>{status}</Label>
         </TableCell>

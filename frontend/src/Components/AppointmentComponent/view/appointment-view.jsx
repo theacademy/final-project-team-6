@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import fetchAppointments from '../appointment-data-fetch';
+import { fetchPatients, fetchDoctors } from '../appointment-data-fetch';
 
+import { Dialog, DialogTitle, DialogContent, DialogActions, Select, MenuItem, TextField, RadioGroup, FormControlLabel, Radio, Button, FormControl, InputLabel, Box, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TableBody from '@mui/material/TableBody';
-import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
@@ -20,18 +20,12 @@ import AppointmentTableHead from '../appointment-table-head';
 import AppointmentTableToolbar from '../appointment-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
 
-
-
-import * as React from 'react'; // This imports React
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
+import * as React from 'react';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-
 
 
 export default function AppointmentPage() {
+
     const [appointments, setAppointments] = useState([]);
 
     const [page, setPage] = useState(0);
@@ -47,6 +41,32 @@ export default function AppointmentPage() {
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
     const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
+
+    const [openNewAppointmentDialog, setOpenNewAppointmentDialog] = useState(false);
+    const [patients, setPatients] = useState([]);
+    const [doctors, setDoctors] = useState([]);
+    const [newAppointment, setNewAppointment] = useState({
+        patientId: '',
+        doctorId: '',
+        date: '',
+        time: '',
+        note: '',
+        hasPaid: 'no'
+    });
+
+    useEffect(() => {
+        const fetchInitialData = async () => {
+            try {
+                const patients = await fetchPatients();
+                const doctors = await fetchDoctors();
+                setPatients(patients);
+                setDoctors(doctors);
+            } catch (error) {
+                console.error("Error fetching initial data:", error);
+            }
+        };
+        fetchInitialData();
+    }, []);
 
 
     useEffect(() => {
@@ -107,6 +127,45 @@ export default function AppointmentPage() {
         setSelected(newSelected);
     };
 
+
+    const handleSubmitNewAppointment = async (event) => {
+        event.preventDefault();
+        const appointmentDateTime = `${newAppointment.date}T${newAppointment.time}:00`;
+        const appointmentData = {
+            patientId: newAppointment.patientId,
+            doctorId: newAppointment.doctorId,
+            appointmentDateTime,
+            status: 'Scheduled',
+            note: newAppointment.note,
+            hasPaid: newAppointment.hasPaid === 'yes'
+        };
+
+        try {
+            const response = await fetch('http://localhost:8080/appointment/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(appointmentData),
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Failed to create appointment: ${errorText}`);
+            }
+            setOpenNewAppointmentDialog(false);
+            refreshAppointmentsList();
+        } catch (error) {
+            console.error('Error creating appointment:', error);
+        }
+    };
+
+    const handleNewAppointmentChange = (event) => {
+        setNewAppointment({ ...newAppointment, [event.target.name]: event.target.value });
+    };
+
+
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -153,7 +212,12 @@ export default function AppointmentPage() {
             <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
                 <Typography variant="h4">Appointments</Typography>
 
-                <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
+                <Button
+                    variant="contained"
+                    color="inherit"
+                    startIcon={<Iconify icon="eva:plus-fill" />}
+                    onClick={() => setOpenNewAppointmentDialog(true)}
+                >
                     New Appointment
                 </Button>
             </Stack>
@@ -244,6 +308,112 @@ export default function AppointmentPage() {
                         </Button>
                     </DialogActions>
                 </Dialog>
+
+                <Dialog open={openNewAppointmentDialog}
+                    onClose={() => setOpenNewAppointmentDialog(false)}
+                >
+                    <DialogTitle>Create New Appointment</DialogTitle>
+                    <form onSubmit={handleSubmitNewAppointment}>
+                        <DialogContent>
+                            {/* Patient Selection */}
+
+                            <FormControl fullWidth margin="normal">
+                                <InputLabel>Patient</InputLabel>
+                                <Select
+                                    value={newAppointment.patientId}
+                                    onChange={handleNewAppointmentChange}
+                                    name="patientId"
+                                    label="Patient"
+                                >
+                                    {patients.map((patient) => (
+                                        <MenuItem key={patient.pid} value={patient.pid}>
+                                            {`${patient.pid} - ${patient.pFName} ${patient.pLName}`}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+
+                            {/* Doctor Selection */}
+                            <FormControl fullWidth margin="normal">
+                                <InputLabel>Doctor</InputLabel>
+                                <Select
+                                    value={newAppointment.doctorId}
+                                    onChange={handleNewAppointmentChange}
+                                    name="doctorId"
+                                    label="Doctor"
+                                >
+                                    {doctors.map((doctor) => (
+                                        <MenuItem key={doctor.did} value={doctor.did}>
+                                            {`${doctor.did} - ${doctor.dfname} ${doctor.dlname}`}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+
+                            {/* Date and Time Selection */}
+                            <Box display="block" >
+                                <TextField
+                                    fullWidth
+                                    margin="dense"
+                                    type="date"
+                                    name="date"
+                                    label="Date"
+                                    value={newAppointment.date}
+                                    onChange={handleNewAppointmentChange}
+                                    sx={{ marginRight: 3 }}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+                                <TextField
+                                    fullWidth
+                                    margin="dense"
+                                    type="time"
+                                    name="time"
+                                    label="Time"
+                                    value={newAppointment.time}
+                                    onChange={handleNewAppointmentChange}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }} />
+                            </Box>
+
+                            {/* Note Section */}
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                multiline
+                                rows={4}
+                                name="note"
+                                label="Note"
+                                value={newAppointment.note}
+                                onChange={handleNewAppointmentChange}
+                            />
+
+                            {/* Payment Status */}
+                            <Typography marginY={2}>Payment Status:</Typography>
+                            <RadioGroup
+                                row
+                                name="hasPaid"
+                                value={newAppointment.hasPaid}
+                                onChange={handleNewAppointmentChange}
+                            >
+                                <FormControlLabel value="yes" control={<Radio />} label="Paid" />
+                                <FormControlLabel value="no" control={<Radio />} label="Not Paid" />
+                            </RadioGroup>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={() => setOpenNewAppointmentDialog(false)} color="secondary">
+                                Cancel
+                            </Button>
+                            <Button type="submit" color="primary">
+                                Create Appointment
+                            </Button>
+                        </DialogActions>
+                    </form>
+                </Dialog>
+
+
 
                 <TablePagination
                     page={page}
