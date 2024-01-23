@@ -17,6 +17,7 @@ import { useState } from "react";
 import { login as apiLogin } from "../Auth/api";
 import { useAuth } from "../Auth/AuthContext";
 import { Navigate } from "react-router-dom";
+import Alert from "@mui/material/Alert";
 
 function Copyright(props) {
   return (
@@ -53,7 +54,7 @@ const SignIn = ({ onRegisterClick }) => {
   const navigate = useNavigate();
 
   const handleRegisterClick = () => {
-    navigate('/signup'); 
+    navigate("/signup");
   };
 
   if (redirectToDashboard) {
@@ -80,14 +81,15 @@ const SignIn = ({ onRegisterClick }) => {
     try {
       setLoading(true);
       const response = await apiLogin(credentials);
-      console.log("User logged in:", response);
-      localStorage.setItem("jwt_token", response.jwt_token);
 
-      if (response) {
+      if (response && response.jwt_token) {
+        console.log("User logged in:", response);
+        localStorage.setItem("jwt_token", response.jwt_token);
         login();
         setRedirectToDashboard(true);
       } else {
-        setError("Login failed. Please try again.");
+        // Handle incorrect credentials
+        setError("Incorrect username or password. Please try again.");
       }
     } catch (error) {
       setError("Login failed. Please try again.");
@@ -131,6 +133,12 @@ const SignIn = ({ onRegisterClick }) => {
               alignItems: "center",
             }}
           >
+            {error && (
+              <Alert severity="error" sx={{ width: "100%", mb: 2 }}>
+                {error}
+              </Alert>
+            )}
+
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>

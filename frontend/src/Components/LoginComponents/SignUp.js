@@ -15,6 +15,7 @@ import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { register } from "../Auth/api";
+import Alert from "@mui/material/Alert";
 
 function Copyright(props) {
   return (
@@ -51,7 +52,7 @@ const SignUp = ({ onRegistrationSuccess, onBackButtonClick }) => {
   const navigate = useNavigate();
 
   const handleSignInClick = () => {
-    navigate('/'); 
+    navigate("/");
   };
 
   const handleRegister = async (e) => {
@@ -69,10 +70,12 @@ const SignUp = ({ onRegistrationSuccess, onBackButtonClick }) => {
     try {
       setLoading(true);
       const response = await register(userCredentials);
-      console.log("User registered:", response);
-
       if (response) {
         setRegistrationSuccess(true);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
       } else {
         setError("Registration failed. Please try again.");
       }
@@ -114,6 +117,12 @@ const SignUp = ({ onRegistrationSuccess, onBackButtonClick }) => {
               alignItems: "center",
             }}
           >
+            {/* Alert for successful registration */}
+            {registrationSuccess && (
+              <Alert severity="success" sx={{ width: "100%", mb: 2 }}>
+                Registration successful! Redirecting to login...
+              </Alert>
+            )}
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
