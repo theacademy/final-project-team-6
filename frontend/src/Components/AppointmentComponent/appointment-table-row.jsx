@@ -132,8 +132,9 @@ export default function AppointmentTableRow({
       const updateResponse = await fetch(`http://localhost:8080/appointment/${appointmentId}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+
         },
         body: JSON.stringify({
           appointmentId: appointmentId,
