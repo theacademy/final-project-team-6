@@ -61,7 +61,15 @@ const DoctorManagement = () => {
     fetchDoctors();
   }, []);
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleAddDoctor = async () => {
+    // Check if any required field is empty
+    if (!newDoctor.dfname || !newDoctor.dlname || !newDoctor.specialty) {
+      setErrorMessage("Please fill in all required fields");
+      return;
+    }
+
     try {
       const response = await fetch("http://localhost:8080/doctor/add", {
         method: "POST",
@@ -78,18 +86,30 @@ const DoctorManagement = () => {
       const addedDoctor = await response.json();
       setDoctors([...doctors, addedDoctor]);
 
-      // Reset the newDoctor state
+      // Reset the newDoctor state and clear error message
       setNewDoctor({
         dfname: "",
         dlname: "",
         specialty: "",
       });
+      setErrorMessage("");
     } catch (error) {
-      console.error("Error adding doctor:", error.message);
+      // Set error message to be displayed on UI
+      setErrorMessage("Error adding doctor. Please try again.");
     }
   };
 
   const handleEditDoctor = async () => {
+    // Check if any required field is empty
+    if (
+      !editedDoctor.dfname ||
+      !editedDoctor.dlname ||
+      !editedDoctor.specialty
+    ) {
+      setErrorMessage("Please fill in all required fields");
+      return;
+    }
+
     try {
       const response = await fetch(
         `http://localhost:8080/doctor/${editedDoctor.did}`,
@@ -115,10 +135,12 @@ const DoctorManagement = () => {
         )
       );
 
-      // Close the modal after successful edit
+      // Close the modal after successful edit and clear error message
       closeModal();
+      setErrorMessage("");
     } catch (error) {
-      console.error("Error editing doctor:", error.message);
+      // Set error message to be displayed on UI
+      setErrorMessage("Error editing doctor. Please try again.");
     }
   };
 
@@ -261,6 +283,13 @@ const DoctorManagement = () => {
             fullWidth
             margin="normal"
           />
+          <Typography
+            variant="body2"
+            color="error"
+            style={{ marginTop: "8px" }}
+          >
+            {errorMessage}
+          </Typography>
           <Button
             variant="contained"
             color="primary"
@@ -319,6 +348,14 @@ const DoctorManagement = () => {
             fullWidth
             margin="normal"
           />
+
+          <Typography
+            variant="body2"
+            color="error"
+            style={{ marginTop: "8px" }}
+          >
+            {errorMessage}
+          </Typography>
           <Button
             variant="contained"
             color="primary"
