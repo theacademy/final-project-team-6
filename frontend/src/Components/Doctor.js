@@ -30,8 +30,11 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link
+        color="inherit"
+        href="https://github.com/theacademy/final-project-team-6/"
+      >
+        MedTime
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -44,7 +47,7 @@ const drawerWidth = 300;
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#000000", // Green #375d35
+      main: "#000", // Green #355828
     },
     background: {
       default: "#f4f4f4", // Light Gray
@@ -77,7 +80,7 @@ const Drawer = styled(MuiDrawer, {
   "& .MuiDrawer-paper": {
     position: "relative",
     whiteSpace: "nowrap",
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: "white",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -91,7 +94,7 @@ const Drawer = styled(MuiDrawer, {
         duration: theme.transitions.duration.leavingScreen,
       }),
       width: theme.spacing(7),
-      backgroundColor: theme.palette.primary.main, // Use primary color when closed
+      backgroundColor: "white", // Use primary color when closed theme.palette.primary.main
       [theme.breakpoints.up("sm")]: {
         width: theme.spacing(9),
       },
@@ -109,7 +112,11 @@ export default function Dashboard() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex" }}>
+      <Box
+        sx={{
+          display: "flex",
+        }}
+      >
         <CssBaseline />
         <AppBar position="absolute" open={open}>
           <Toolbar
@@ -159,21 +166,13 @@ export default function Dashboard() {
             }}
           >
             <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon sx={{ fontSize: "35px", color: "white" }} />
+              <ChevronLeftIcon sx={{ fontSize: "35px" }} />
             </IconButton>
           </Toolbar>
           <Divider />
           <List component="nav">{mainListItems}</List>
         </Drawer>
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: theme.palette.background.default,
-            flexGrow: 1,
-            height: "100vh",
-            overflow: "auto",
-          }}
-        >
+        <Box component="main" className="background-container">
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, minHeight: "90vh" }}>
             <DoctorManagement />

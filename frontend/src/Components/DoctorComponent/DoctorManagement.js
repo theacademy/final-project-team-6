@@ -165,19 +165,19 @@ const DoctorManagement = () => {
         height: "850px",
         overflowY: "auto",
       }}
-      sx={{ backgroundColor: "black" }}
+      sx={{ backgroundColor: "#f2f2f2" }} //#f4f4f4
     >
-      <Typography variant="h5" sx={{ color: "white" }} gutterBottom>
+      <Typography variant="h5" sx={{ color: "black" }} gutterBottom>
         Provider Management
         <IconButton
           color="primary"
           onClick={openAddModal}
           style={{ marginLeft: "8px" }}
         >
-          <AddBoxIcon style={{ fontSize: 35, color: "green" }} />
+          <AddBoxIcon style={{ fontSize: 35, color: "#4CAF50" }} />
         </IconButton>
       </Typography>
-      <Divider style={{ marginBottom: "16px" }} />
+      <Divider style={{ marginBottom: "16px", backgroundColor: "white" }} />
       <Grid container spacing={2}>
         {doctors.map((doctor) => (
           <Grid item xs={12} key={doctor.did}>
