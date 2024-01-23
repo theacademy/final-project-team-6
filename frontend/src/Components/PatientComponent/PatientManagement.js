@@ -123,6 +123,7 @@ const PatientManagement = () => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedPatient, setEditedPatient] = useState({
+    pid: "",
     pFName: "",
     pLName: "",
     birthday: "",
@@ -138,11 +139,12 @@ const PatientManagement = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     setEditedPatient({
+      pid: "",
       pFName: "",
       pLName: "",
       birthday: "",
       phoneNumber: "",
-      insurancePatient: "",
+      insuranceProvider: "",
     });
   };
 
@@ -188,7 +190,7 @@ const PatientManagement = () => {
         pLName: "",
         birthday: "",
         phoneNumber: "",
-        insurancePatient: "",
+        insuranceProvider: "",
       });
     } catch (error) {
       console.error("Error adding patient:", error.message);
@@ -198,7 +200,7 @@ const PatientManagement = () => {
   const handleEditPatient = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/patient/${editedPatient.did}`,
+        `http://localhost:8080/updatePatient/${editedPatient.pid}`,
         {
           method: "PUT",
           headers: {
@@ -217,7 +219,7 @@ const PatientManagement = () => {
       // Update the patients state
       setPatients((prevPatients) =>
         prevPatients.map((patient) =>
-          patient.did === editedPatient.did ? updatedPatient : patient
+          patient.pid === editedPatient.pid ? updatedPatient : patient
         )
       );
 
@@ -230,9 +232,12 @@ const PatientManagement = () => {
 
   const handleRemovePatient = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/patient/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `http://localhost:8080/deletePatient/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to remove patient");
@@ -240,7 +245,7 @@ const PatientManagement = () => {
 
       // Update the patients state
       setPatients((prevPatients) =>
-        prevPatients.filter((patient) => patient.did !== id)
+        prevPatients.filter((patient) => patient.pid !== id)
       );
     } catch (error) {
       console.error("Error removing patient:", error.message);
@@ -260,7 +265,7 @@ const PatientManagement = () => {
       pLName: "",
       birthday: "",
       phoneNumber: "",
-      insurancePatient: "",
+      insuranceProvider: "",
     });
   };
 
@@ -323,7 +328,7 @@ const PatientManagement = () => {
                 )
               : patients
             ).map((patient) => (
-              <StyledTableRow key={patient.PID}>
+              <StyledTableRow key={patient.pid}>
                 <StyledTableCell component="th" scope="row">
                   {patient.pFName}
                 </StyledTableCell>
@@ -355,7 +360,7 @@ const PatientManagement = () => {
                   <Button
                     variant="outlined"
                     color="secondary"
-                    onClick={() => handleRemovePatient(patient.PID)}
+                    onClick={() => handleRemovePatient(patient.pid)}
                     style={{ marginTop: "8px", marginLeft: "8px" }}
                   >
                     Remove
@@ -435,7 +440,7 @@ const PatientManagement = () => {
           />
 
           <TextField
-            label="Birthday"
+            label="Phone Number"
             value={editedPatient.phoneNumber}
             onChange={(e) =>
               setEditedPatient({
@@ -448,7 +453,7 @@ const PatientManagement = () => {
           />
 
           <TextField
-            label="Birthday"
+            label="InsuranceProvider"
             value={editedPatient.insuranceProvider}
             onChange={(e) =>
               setEditedPatient({
@@ -462,7 +467,7 @@ const PatientManagement = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => handleEditPatient(editedPatient.did)}
+            onClick={() => handleEditPatient(editedPatient.pid)}
             style={{ marginTop: "8px" }}
           >
             Save Changes
