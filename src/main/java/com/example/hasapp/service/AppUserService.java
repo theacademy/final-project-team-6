@@ -74,9 +74,9 @@ public class AppUserService implements UserDetailsService {
             result.addMessage("username must be 50 characters max");
         }
 
-        if (!validatePassword(password)) {
-            result.addMessage("password must be at least 8 characters and contain a digit, a letter, and a non-digit/non-letter");
-        }
+//        if (!validatePassword(password)) {
+//            result.addMessage("password must be at least 8 characters and contain a digit, a letter, and a non-digit/non-letter");
+//        }
 
         try {
             if (loadUserByUsername(username) != null) {
@@ -97,24 +97,24 @@ public class AppUserService implements UserDetailsService {
     }
 
 
-    private boolean validatePassword(String password) {
-        if (password.length() < 8) {
-            return false;
-        }
-
-        int digits = 0;
-        int letters = 0;
-        int others = 0;
-        for (char c : password.toCharArray()) {
-            if (Character.isDigit(c)) {
-                digits++;
-            } else if (Character.isLetter(c)) {
-                letters++;
-            } else {
-                others++;
-            }
-        }
-
-        return digits > 0 && letters > 0 && others > 0;
-    }
+//    private boolean validatePassword(String password) {
+//        if (password.length() < 8) {
+//            return false;
+//        }
+//
+//        int digits = 0;
+//        int letters = 0;
+//        int others = 0;
+//        for (char c : password.toCharArray()) {
+//            if (Character.isDigit(c)) {
+//                digits++;
+//            } else if (Character.isLetter(c)) {
+//                letters++;
+//            } else {
+//                others++;
+//            }
+//        }
+//
+//        return digits > 0 && letters > 0 && others > 0;
+//    }
 }
