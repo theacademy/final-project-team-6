@@ -48,7 +48,10 @@ export function applyFilter({ inputData, comparator, filterName }) {
 
   if (filterName) {
     inputData = inputData.filter(
-      (appointments) => appointments.patientName.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+      (appointments) =>
+        appointments.patientName
+          .toLowerCase()
+          .indexOf(filterName.toLowerCase()) !== -1
     );
   }
 

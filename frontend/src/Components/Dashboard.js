@@ -181,7 +181,7 @@ export default function Dashboard() {
                     display: "flex",
                     flexDirection: "column",
                     height: "100%",
-                    backgroundColor: "#f2f2f2",
+                    backgroundColor: "white",
                   }}
                 >
                   <PatientBox />
@@ -195,7 +195,7 @@ export default function Dashboard() {
                     display: "flex",
                     flexDirection: "column",
                     height: 340,
-                    backgroundColor: "#f2f2f2",
+                    backgroundColor: "white",
                   }}
                 >
                   <DoctorBox />
@@ -209,6 +209,7 @@ export default function Dashboard() {
                     display: "flex",
                     flexDirection: "column",
                     height: "100%",
+                    backgroundColor: "white",
                   }}
                 >
                   <AppointmentBox />

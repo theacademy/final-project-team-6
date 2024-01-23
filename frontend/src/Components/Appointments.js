@@ -29,8 +29,11 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Healhcare Appointment System{" "}
+      <Link
+        color="inherit"
+        href="https://github.com/theacademy/final-project-team-6/"
+      >
+        MedTime
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -43,7 +46,7 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  backgroundColor: "#355828",
+  backgroundColor: "black",
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -119,7 +122,7 @@ export default function Dashboard() {
               variant="h5"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
             >
               Hospital Scheduling System
             </Typography>
@@ -150,18 +153,7 @@ export default function Dashboard() {
           <Divider />
           <List component="nav">{mainListItems}</List>
         </Drawer>
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: "100vh",
-            overflow: "auto",
-          }}
-        >
+        <Box component="main" className="background-container">
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4, minHeight: "100vh" }}>
             <AppointmentPage />

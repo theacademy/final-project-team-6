@@ -283,8 +283,13 @@ const PatientManagement = () => {
   return (
     <Paper
       elevation={3}
-      style={{ padding: "25px", marginTop: "16px" }}
-      sx={{ backgroundColor: "#f2f2f2" }}
+      style={{
+        padding: "25px",
+        marginTop: "16px",
+        height: "700px",
+        overflowY: "auto",
+      }}
+      sx={{ backgroundColor: "#f7f7f7" }}
     >
       <Typography variant="h5" sx={{ color: "black" }} gutterBottom>
         Patient Management
@@ -519,7 +524,7 @@ const PatientManagement = () => {
           />
 
           <TextField
-            label="Birthday"
+            label="Birthday (yyyy-mm-dd)"
             value={newPatient.birthday}
             onChange={(e) =>
               setNewPatient({ ...newPatient, birthday: e.target.value })
