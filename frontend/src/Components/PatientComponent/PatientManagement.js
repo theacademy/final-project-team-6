@@ -308,10 +308,36 @@ const PatientManagement = () => {
             margin="normal"
           />
           <TextField
-            label="Specialty"
-            value={editedPatient.specialty}
+            label="Birthday"
+            value={editedPatient.birthday}
             onChange={(e) =>
-              setEditedPatient({ ...editedPatient, specialty: e.target.value })
+              setEditedPatient({ ...editedPatient, birthday: e.target.value })
+            }
+            fullWidth
+            margin="normal"
+          />
+
+          <TextField
+            label="Birthday"
+            value={editedPatient.phoneNumber}
+            onChange={(e) =>
+              setEditedPatient({
+                ...editedPatient,
+                phoneNumber: e.target.value,
+              })
+            }
+            fullWidth
+            margin="normal"
+          />
+
+          <TextField
+            label="Birthday"
+            value={editedPatient.insuranceProvider}
+            onChange={(e) =>
+              setEditedPatient({
+                ...editedPatient,
+                insuranceProvider: e.target.value,
+              })
             }
             fullWidth
             margin="normal"
