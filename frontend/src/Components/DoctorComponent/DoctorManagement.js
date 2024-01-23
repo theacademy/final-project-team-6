@@ -174,7 +174,7 @@ const DoctorManagement = () => {
           onClick={openAddModal}
           style={{ marginLeft: "8px" }}
         >
-          <AddBoxIcon style={{ fontSize: 35, color: "green" }} />
+          <AddBoxIcon style={{ fontSize: 35, color: "#4CAF50" }} />
         </IconButton>
       </Typography>
       <Divider style={{ marginBottom: "16px", backgroundColor: "white" }} />

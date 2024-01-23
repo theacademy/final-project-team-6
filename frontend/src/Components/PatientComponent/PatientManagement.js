@@ -194,9 +194,9 @@ const PatientManagement = () => {
     <Paper
       elevation={3}
       style={{ padding: "25px", marginTop: "16px" }}
-      sx={{ backgroundColor: "#355828" }}
+      sx={{ backgroundColor: "#f2f2f2" }}
     >
-      <Typography variant="h5" sx={{ color: "white" }} gutterBottom>
+      <Typography variant="h5" sx={{ color: "black" }} gutterBottom>
         Patient Management
         <IconButton
           color="primary"

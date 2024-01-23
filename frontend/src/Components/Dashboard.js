@@ -31,8 +31,11 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link
+        color="inherit"
+        href="https://github.com/theacademy/final-project-team-6/"
+      >
+        MedTime
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -123,7 +126,7 @@ export default function Dashboard() {
               variant="h5"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
             >
               Hospital Scheduling System
             </Typography>
