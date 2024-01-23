@@ -24,3 +24,4 @@ INSERT INTO appointment (appointmentDateTime, pId, dId, status, note, hasPaid) V
 ('2024-07-01', 1, 2, 'Scheduled', 'Dental checkup', false),
 ('2024-08-12', 3, 5, 'Completed', 'Pediatric visit', true);
 
+INSERT INTO role (name) VALUES ('user'), ('admin');
