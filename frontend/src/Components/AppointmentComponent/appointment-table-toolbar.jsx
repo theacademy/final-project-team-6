@@ -11,7 +11,7 @@ import Iconify from '../AppointmentStyle/iconify/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function AppointmentTableToolbar({ numSelected, filterName, onFilterName }) {
+export default function AppointmentTableToolbar({ numSelected, filterName, onFilterName, handleDeleteSelected }) {
   return (
     <Toolbar
       sx={{
@@ -33,7 +33,7 @@ export default function AppointmentTableToolbar({ numSelected, filterName, onFil
         <OutlinedInput
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search appointment..."
+          placeholder="Search patient..."
           startAdornment={
             <InputAdornment position="start">
               <Iconify
@@ -44,20 +44,11 @@ export default function AppointmentTableToolbar({ numSelected, filterName, onFil
           }
         />
       )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <Iconify icon="eva:trash-2-fill" />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <Iconify icon="ic:round-filter-list" />
-          </IconButton>
-        </Tooltip>
-      )}
+      <Tooltip title="Delete">
+        <IconButton onClick={handleDeleteSelected}>
+          <Iconify icon="eva:trash-2-fill" />
+        </IconButton>
+      </Tooltip>
     </Toolbar>
   );
 }
