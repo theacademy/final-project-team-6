@@ -105,14 +105,15 @@ public class PatientService {
             patient.setError("Last name cannot be empty");
             return patient;
         }
+        else if(patient.getPhoneNumber().length() != 12){
+            patient.setError("Wrong phone number format, must be XXX-XXX-XXXX");
+            return patient;
+        }
         else if(patient.getBirthdayConverted() == null){
             patient.setError("Birthday in wrong format, must be in yyyy-mm-dd format");
             return patient;
         }
-        else if(patient.getPhoneNumber().length() != 10){
-            patient.setError("Wrong phone number format, must be 10 digits, no dashes");
-            return patient;
-        }
+
         else{
             return patient;
         }
