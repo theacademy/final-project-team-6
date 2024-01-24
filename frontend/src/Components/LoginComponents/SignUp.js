@@ -111,7 +111,7 @@ const SignUp = ({ onRegistrationSuccess, onBackButtonClick }) => {
             sx={{
               my: 30,
               mx: 4,
-              px: 30,
+              px: 25,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -127,7 +127,7 @@ const SignUp = ({ onRegistrationSuccess, onBackButtonClick }) => {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign up
+              Sign Up
             </Typography>
             <Box
               component="form"
@@ -138,10 +138,11 @@ const SignUp = ({ onRegistrationSuccess, onBackButtonClick }) => {
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
-                    autoComplete="user-name"
-                    name="userName"
+                    margin="normal"
                     required
                     fullWidth
+                    autoComplete="user-name"
+                    name="userName"
                     id="InputUsername"
                     label="User Name"
                     autoFocus

@@ -189,14 +189,19 @@ const PatientManagement = () => {
     setUserHasSearched(true);
     let filteredResults;
 
-    if (searchTerm === "") {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
+    if (lowerCaseSearchTerm === "") {
       filteredResults = patients;
       setUserHasSearched(false);
     } else {
       filteredResults = patients.filter((patient) => {
+        const lowerCaseFirstName = patient.pFName.toLowerCase();
+        const lowerCaseLastName = patient.pLName.toLowerCase();
+
         return (
-          patient.pFName.includes(searchTerm) ||
-          patient.pLName.includes(searchTerm)
+          lowerCaseFirstName.includes(lowerCaseSearchTerm) ||
+          lowerCaseLastName.includes(lowerCaseSearchTerm)
         );
       });
     }
@@ -350,17 +355,34 @@ const PatientManagement = () => {
       }}
       sx={{ backgroundColor: "#f7f7f7" }}
     >
-      <Typography variant="h5" sx={{ color: "black" }} gutterBottom>
-        Patient Management
-        <IconButton
-          color="primary"
-          onClick={openAddModal}
-          style={{ marginLeft: "8px" }}
-        >
-          <AddBoxIcon style={{ fontSize: 35, color: "#4CAF50" }} />
-        </IconButton>
-        <SearchBar searchValueFunction={filterPatientData} />
-      </Typography>
+      <Grid container alignItems="center">
+        <Grid item>
+          <Typography
+            variant="h5"
+            sx={{ color: "black", marginTop: "15px" }}
+            gutterBottom
+          >
+            Patient Management
+          </Typography>
+        </Grid>
+        <Grid item>
+          {/* Search Bar */}
+          <SearchBar searchValueFunction={filterPatientData} />
+        </Grid>
+        <Grid item xs={12} sm={6}></Grid>{" "}
+        {/* Empty Grid item to push next content to the right */}
+        <Grid item></Grid>
+        <Grid item>
+          <IconButton
+            color="primary"
+            onClick={openAddModal}
+            style={{ marginLeft: "50px" }}
+          >
+            <AddBoxIcon style={{ fontSize: 35, color: "#4CAF50" }} />
+          </IconButton>
+        </Grid>
+      </Grid>
+
       <Divider style={{ marginBottom: "16px" }} />
 
       <TableContainer component={Paper}>

@@ -40,7 +40,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText>
         <Typography variant="h6" sx={{ color: "#000", textDecoration: "none" }}>
-          Provider Management
+          Providers
         </Typography>
       </ListItemText>
     </ListItemButton>

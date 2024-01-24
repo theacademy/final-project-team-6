@@ -20,6 +20,9 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems } from "./DashboardComponents/listItems";
 import DoctorBox from "./DashboardComponents/doctorBox";
 import DoctorManagement from "./DoctorComponent/DoctorManagement";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useAuth } from "./Auth/AuthContext";
+import { Navigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -104,10 +107,16 @@ const Drawer = styled(MuiDrawer, {
 
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+export default function Doctor() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
+  };
+
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -145,13 +154,11 @@ export default function Dashboard() {
             >
               Hospital Scheduling System
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="warning">
-                <NotificationsIcon
-                  style={{ color: "white" }}
-                  sx={{ fontSize: "35px" }}
-                />
-              </Badge>
+            <IconButton color="inherit" onClick={handleLogout}>
+              <ExitToAppIcon
+                style={{ color: "red" }}
+                sx={{ fontSize: "35px" }}
+              />
             </IconButton>
           </Toolbar>
         </AppBar>

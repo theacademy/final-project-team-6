@@ -21,6 +21,9 @@ import { mainListItems } from "./DashboardComponents/listItems";
 import DoctorBox from "./DashboardComponents/doctorBox";
 import AppointmentBox from "./DashboardComponents/appointmentBox";
 import PatientBox from "./DashboardComponents/patientBox";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useAuth } from "./Auth/AuthContext";
+import { Navigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -99,6 +102,12 @@ export default function Dashboard() {
     setOpen(!open);
   };
 
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex" }}>
@@ -130,14 +139,11 @@ export default function Dashboard() {
             >
               Hospital Scheduling System
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="warning">
-                {/* <Badge badgeContent={4} style={{ color: "black" }}> */}
-                <NotificationsIcon
-                  style={{ color: "white" }}
-                  sx={{ fontSize: "35px" }}
-                />
-              </Badge>
+            <IconButton color="inherit" onClick={handleLogout}>
+              <ExitToAppIcon
+                style={{ color: "red" }}
+                sx={{ fontSize: "35px" }}
+              />
             </IconButton>
           </Toolbar>
         </AppBar>
