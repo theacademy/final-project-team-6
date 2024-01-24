@@ -127,7 +127,7 @@ const SignIn = ({ onRegisterClick }) => {
             sx={{
               my: 30,
               mx: 4,
-              px: 25,
+              px: 20,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
