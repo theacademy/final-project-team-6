@@ -285,7 +285,7 @@ const DoctorManagement = () => {
         <Grid item>
           {/* Search Bar */}
           <TextField
-            label="Search Doctors"
+            label="Search Providers"
             value={searchInput}
             onChange={handleSearchInputChange}
             variant="outlined"

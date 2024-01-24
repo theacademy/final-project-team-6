@@ -15,28 +15,28 @@ function preventDefault(event) {
 }
 
 async function fetchPatient(patientId) {
-  const token = localStorage.getItem('jwt_token');
+  const token = localStorage.getItem("jwt_token");
 
   const response = await fetch(`http://localhost:8080/patients/${patientId}`, {
     method: "GET",
     headers: {
-      'Authorization': `Bearer ${token}`
-    }
-    });
+      Authorization: `Bearer ${token}`,
+    },
+  });
   const data = await response.json();
   const name = data.pFName + " " + data.pLName;
   return name;
 }
 
 async function fetchDoctor(doctorId) {
-  const token = localStorage.getItem('jwt_token');
+  const token = localStorage.getItem("jwt_token");
 
   const response = await fetch(`http://localhost:8080/doctor/${doctorId}`, {
     method: "GET",
     headers: {
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
-  });  
+  });
   const data = await response.json();
   const name = data.dfname + " " + data.dlname;
   return name;
@@ -46,7 +46,7 @@ export default function AppointmentTable() {
   const [rows, setRows] = React.useState([]);
 
   const fetchAppointments = async () => {
-    const token = localStorage.getItem('jwt_token');
+    const token = localStorage.getItem("jwt_token");
 
     try {
       const response = await fetch(
@@ -54,7 +54,7 @@ export default function AppointmentTable() {
         {
           method: "GET",
           headers: {
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -104,7 +104,7 @@ export default function AppointmentTable() {
               <TableRow>
                 <TableCell>ID</TableCell>
                 <TableCell>Patient</TableCell>
-                <TableCell>Doctor</TableCell>
+                <TableCell>Provider</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell>Time</TableCell>
                 <TableCell>Status</TableCell>

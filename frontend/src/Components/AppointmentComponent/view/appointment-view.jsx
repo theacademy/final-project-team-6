@@ -143,14 +143,14 @@ export default function AppointmentPage() {
       note: newAppointment.note,
       hasPaid: newAppointment.hasPaid === "yes",
     };
-    const token = localStorage.getItem('jwt_token');
+    const token = localStorage.getItem("jwt_token");
 
     try {
       const response = await fetch("http://localhost:8080/appointment/add", {
         method: "POST",
         headers: {
-          'Authorization': `Bearer ${token}`,
-          "Content-Type": "application/json"
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(appointmentData),
       });
@@ -198,14 +198,14 @@ export default function AppointmentPage() {
   };
 
   const confirmDeleteSelected = async () => {
-    const token = localStorage.getItem('jwt_token');
+    const token = localStorage.getItem("jwt_token");
 
     try {
       for (let id of selected) {
         await fetch(`http://localhost:8080/appointment/${id}`, {
           method: "DELETE",
           headers: {
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
       }
@@ -251,7 +251,7 @@ export default function AppointmentPage() {
 
         {/* Replace Scrollbar with a div */}
         <div style={{ overflow: "auto", maxHeight: "600px" }}>
-          <TableContainer sx={{ overflow: 'unset' }}>
+          <TableContainer sx={{ overflow: "unset" }}>
             <Table sx={{ minWidth: 800 }}>
               <AppointmentTableHead
                 order={order}
@@ -261,15 +261,15 @@ export default function AppointmentPage() {
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
-                  { id: 'appointmentId', label: 'Appointment ID' },
-                  { id: 'patientName', label: 'Patient' },
-                  { id: 'doctorName', label: 'Doctor' },
-                  { id: 'appointmentDate', label: 'Appointment Date' },
-                  { id: 'appointmentTime', label: 'Appointment Time' },
-                  { id: 'status', label: 'Appointment Status' },
-                  { id: 'note', label: 'Appointment Note' },
-                  { id: 'hasPaid', label: 'Payment', align: 'center' },
-                  { id: '' },
+                  { id: "appointmentId", label: "ID" },
+                  { id: "patientName", label: "Patient" },
+                  { id: "doctorName", label: "Provider" },
+                  { id: "appointmentDate", label: "Appointment Date" },
+                  { id: "appointmentTime", label: "Appointment Time" },
+                  { id: "status", label: "Appointment Status" },
+                  { id: "note", label: "Appointment Note" },
+                  { id: "hasPaid", label: "Payment", align: "center" },
+                  { id: "" },
                 ]}
               />
               <TableBody>
@@ -289,7 +289,9 @@ export default function AppointmentPage() {
                       doctorId={row.doctorId}
                       patientId={row.patientId}
                       selected={selected.indexOf(row.appointmentId) !== -1}
-                      handleClick={(event) => handleClick(event, row.appointmentId)}
+                      handleClick={(event) =>
+                        handleClick(event, row.appointmentId)
+                      }
                       refreshAppointments={refreshAppointmentsList}
                     />
                   ))}
@@ -329,7 +331,8 @@ export default function AppointmentPage() {
           </DialogActions>
         </Dialog>
 
-        <Dialog open={openNewAppointmentDialog}
+        <Dialog
+          open={openNewAppointmentDialog}
           onClose={() => setOpenNewAppointmentDialog(false)}
         >
           <DialogTitle>Create New Appointment</DialogTitle>
@@ -371,7 +374,7 @@ export default function AppointmentPage() {
               </FormControl>
 
               {/* Date and Time Selection */}
-              <Box display="block" >
+              <Box display="block">
                 <TextField
                   fullWidth
                   margin="dense"
@@ -395,7 +398,8 @@ export default function AppointmentPage() {
                   onChange={handleNewAppointmentChange}
                   InputLabelProps={{
                     shrink: true,
-                  }} />
+                  }}
+                />
               </Box>
 
               {/* Note Section */}
@@ -418,12 +422,23 @@ export default function AppointmentPage() {
                 value={newAppointment.hasPaid}
                 onChange={handleNewAppointmentChange}
               >
-                <FormControlLabel value="yes" control={<Radio />} label="Paid" />
-                <FormControlLabel value="no" control={<Radio />} label="Not Paid" />
+                <FormControlLabel
+                  value="yes"
+                  control={<Radio />}
+                  label="Paid"
+                />
+                <FormControlLabel
+                  value="no"
+                  control={<Radio />}
+                  label="Not Paid"
+                />
               </RadioGroup>
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => setOpenNewAppointmentDialog(false)} color="secondary">
+              <Button
+                onClick={() => setOpenNewAppointmentDialog(false)}
+                color="secondary"
+              >
                 Cancel
               </Button>
               <Button type="submit" color="primary">
