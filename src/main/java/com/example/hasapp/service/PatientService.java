@@ -88,7 +88,7 @@ public class PatientService {
         else if(patient.getBirthdayConverted() == null){
             return false;
         }
-        else if(patient.getPhoneNumber().length() != 10){
+        else if(patient.getPhoneNumber().length() != 12){
             return false;
         }
         else{
