@@ -6,8 +6,15 @@ const PatientBox = () => {
 
   // Fetch patients from backend
   const fetchPatients = async () => {
+    const token = localStorage.getItem("jwt_token");
+
     try {
-      const response = await fetch("http://localhost:8080/patients");
+      const response = await fetch("http://localhost:8080/patients", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch patients");
       }
@@ -26,7 +33,7 @@ const PatientBox = () => {
   return (
     <Paper
       elevation={3}
-      style={{ padding: "16px", marginTop: "16px", backgroundColor: "#fbfaf8" }}
+      style={{ padding: "16px", marginTop: "16px", backgroundColor: "#f7f7f7" }}
     >
       <Typography variant="h6" gutterBottom>
         Patients

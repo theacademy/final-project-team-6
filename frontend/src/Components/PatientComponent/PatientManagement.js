@@ -161,8 +161,15 @@ const PatientManagement = () => {
 
   // Fetch patients from backend
   const fetchPatients = async () => {
+    const token = localStorage.getItem("jwt_token");
+
     try {
-      const response = await fetch("http://localhost:8080/patients");
+      const response = await fetch("http://localhost:8080/patients", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch patients");
       }
@@ -198,11 +205,14 @@ const PatientManagement = () => {
   }
 
   const handleAddPatient = async () => {
+    const token = localStorage.getItem("jwt_token");
+
     try {
       const response = await fetch("http://localhost:8080/addPatient", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(newPatient),
       });
@@ -233,6 +243,8 @@ const PatientManagement = () => {
   };
 
   const handleEditPatient = async () => {
+    const token = localStorage.getItem("jwt_token");
+
     try {
       const response = await fetch(
         `http://localhost:8080/updatePatient/${editedPatient.pid}`,
@@ -240,6 +252,7 @@ const PatientManagement = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(editedPatient),
         }
@@ -270,11 +283,16 @@ const PatientManagement = () => {
   };
 
   const handleRemovePatient = async (id) => {
+    const token = localStorage.getItem("jwt_token");
+
     try {
       const response = await fetch(
         `http://localhost:8080/deletePatient/${id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
@@ -324,8 +342,13 @@ const PatientManagement = () => {
   return (
     <Paper
       elevation={3}
-      style={{ padding: "25px", marginTop: "16px" }}
-      sx={{ backgroundColor: "#f2f2f2" }}
+      style={{
+        padding: "25px",
+        marginTop: "16px",
+        height: "700px",
+        overflowY: "auto",
+      }}
+      sx={{ backgroundColor: "#f7f7f7" }}
     >
       <Typography variant="h5" sx={{ color: "black" }} gutterBottom>
         Patient Management
@@ -571,7 +594,7 @@ const PatientManagement = () => {
           />
 
           <TextField
-            label="Birthday"
+            label="Birthday (yyyy-mm-dd)"
             value={newPatient.birthday}
             onChange={(e) =>
               setNewPatient({ ...newPatient, birthday: e.target.value })

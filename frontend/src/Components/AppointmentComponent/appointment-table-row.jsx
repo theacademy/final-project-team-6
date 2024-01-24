@@ -50,9 +50,13 @@ export default function AppointmentTableRow({
 
   };
   const handleDeleteConfirm = async () => {
+    const token = localStorage.getItem('jwt_token');
     try {
       const response = await fetch(`http://localhost:8080/appointment/${appointmentId}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
       });
 
       if (!response.ok) {
@@ -115,6 +119,7 @@ export default function AppointmentTableRow({
   };
 
   const handleEditConfirm = async () => {
+    const token = localStorage.getItem('jwt_token');
 
     const combinedDateTime = `${newDetails.newDate}T${newDetails.newTime}:00`;
 
@@ -127,7 +132,9 @@ export default function AppointmentTableRow({
       const updateResponse = await fetch(`http://localhost:8080/appointment/${appointmentId}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+
         },
         body: JSON.stringify({
           appointmentId: appointmentId,

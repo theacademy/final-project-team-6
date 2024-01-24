@@ -11,7 +11,7 @@ import { Typography, Link } from "@mui/material";
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton component={RouterLink} to="/">
+    <ListItemButton component={RouterLink} to="/dashboard">
       <ListItemIcon>
         <DashboardIcon sx={{ fontSize: "35px", color: "#7637A0" }} />
       </ListItemIcon>
