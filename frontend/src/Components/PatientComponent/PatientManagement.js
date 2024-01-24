@@ -30,7 +30,10 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 
+import SearchBar from "./SearchBar";
+
 function TablePaginationActions(props) {
+  // For pagination
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -130,6 +133,14 @@ const PatientManagement = () => {
     phoneNumber: "",
     insuranceProvider: "",
   });
+  const [searchResults, setSearchResults] = useState(patients);
+  const [userHasSearched, setUserHasSearched] = useState(false);
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const phoneRegex = /\d\d\d-\d\d\d-\d\d\d\d/i;
+  const [phoneMatch, setPhoneMatch] = useState(false);
 
   const openModal = (patient) => {
     setEditedPatient(patient);
@@ -167,6 +178,25 @@ const PatientManagement = () => {
     fetchPatients();
   }, []);
 
+  function filterPatientData(searchTerm) {
+    setUserHasSearched(true);
+    let filteredResults;
+
+    if (searchTerm === "") {
+      filteredResults = patients;
+      setUserHasSearched(false);
+    } else {
+      filteredResults = patients.filter((patient) => {
+        return (
+          patient.pFName.includes(searchTerm) ||
+          patient.pLName.includes(searchTerm)
+        );
+      });
+    }
+
+    setSearchResults(filteredResults);
+  }
+
   const handleAddPatient = async () => {
     try {
       const response = await fetch("http://localhost:8080/addPatient", {
@@ -182,16 +212,21 @@ const PatientManagement = () => {
       }
 
       const addedPatient = await response.json();
-      setPatients([...patients, addedPatient]);
+
+      if (addedPatient.error === null) {
+        setPatients([...patients, addedPatient]);
+        setNewPatient({
+          pFName: "",
+          pLName: "",
+          birthday: "",
+          phoneNumber: "",
+          insuranceProvider: "",
+        });
+      } else if (addedPatient.error.length > 0) {
+        alert(addedPatient.error);
+      }
 
       // Reset the newPatient state
-      setNewPatient({
-        pFName: "",
-        pLName: "",
-        birthday: "",
-        phoneNumber: "",
-        insuranceProvider: "",
-      });
     } catch (error) {
       console.error("Error adding patient:", error.message);
     }
@@ -216,12 +251,16 @@ const PatientManagement = () => {
 
       const updatedPatient = await response.json();
 
-      // Update the patients state
-      setPatients((prevPatients) =>
-        prevPatients.map((patient) =>
-          patient.pid === editedPatient.pid ? updatedPatient : patient
-        )
-      );
+      if (updatedPatient.error === null) {
+        // Update the patients state
+        setPatients((prevPatients) =>
+          prevPatients.map((patient) =>
+            patient.pid === editedPatient.pid ? updatedPatient : patient
+          )
+        );
+      } else if (updatedPatient.error.length > 0) {
+        alert(updatedPatient.error);
+      }
 
       // Close the modal after successful edit
       closeModal();
@@ -269,9 +308,6 @@ const PatientManagement = () => {
     });
   };
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - patients.length) : 0;
@@ -300,6 +336,7 @@ const PatientManagement = () => {
         >
           <AddBoxIcon style={{ fontSize: 35, color: "#4CAF50" }} />
         </IconButton>
+        <SearchBar searchValueFunction={filterPatientData} />
       </Typography>
       <Divider style={{ marginBottom: "16px" }} />
 
@@ -321,7 +358,14 @@ const PatientManagement = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
+            {(userHasSearched
+              ? rowsPerPage > 0
+                ? searchResults.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                : searchResults
+              : rowsPerPage > 0
               ? patients.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
@@ -437,6 +481,7 @@ const PatientManagement = () => {
             }
             fullWidth
             margin="normal"
+            helperText={"Must be YYYY-MM-DD"}
           />
 
           <TextField
@@ -450,6 +495,7 @@ const PatientManagement = () => {
             }
             fullWidth
             margin="normal"
+            helperText={"Must be xxx-xxx-xxxx"}
           />
 
           <TextField
@@ -516,11 +562,12 @@ const PatientManagement = () => {
           <TextField
             label="Phone Number"
             value={newPatient.phoneNumber}
-            onChange={(e) =>
-              setNewPatient({ ...newPatient, phoneNumber: e.target.value })
-            }
+            onChange={(e) => {
+              setNewPatient({ ...newPatient, phoneNumber: e.target.value });
+            }}
             fullWidth
             margin="normal"
+            helperText={"Must be xxx-xxx-xxxx"}
           />
 
           <TextField
@@ -531,6 +578,7 @@ const PatientManagement = () => {
             }
             fullWidth
             margin="normal"
+            helperText={"Must be YYYY-MM-DD"}
           />
 
           <TextField
