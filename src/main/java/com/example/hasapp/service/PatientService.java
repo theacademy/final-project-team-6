@@ -56,14 +56,11 @@ public class PatientService {
     }
 
     public void deletePatientById(int id) {
-        //YOUR CODE STARTS HERE
 
         patientDAO.deletePatientById(id);
-        //YOUR CODE ENDS HERE
     }
 
     public Patient getPatientById(int id) {
-        //YOUR CODE STARTS HERE
         try {
             return patientDAO.getPatientById(id);
         } catch (DataAccessException ex) {
@@ -74,7 +71,6 @@ public class PatientService {
             patient.setError("Patient Not Found");
             return patient;
         }
-        //YOUR CODE ENDS HERE
     }
 
 
