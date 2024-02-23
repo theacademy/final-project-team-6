@@ -34,38 +34,30 @@ public class PatientController {
 
     @GetMapping("/patients/{id}")
     public Patient getPatientById(@PathVariable int id) {
-        //YOUR CODE STARTS HERE
 
         return patientService.getPatientById(id);
 
-        //YOUR CODE ENDS HERE
     }
 
     @PostMapping("/addPatient")
     public Patient addPatient(@RequestBody Patient patient) {
-        //YOUR CODE STARTS HERE
 
         return patientService.addPatient(patient);
 
-        //YOUR CODE ENDS HERE
     }
 
     @PutMapping("/updatePatient/{id}")
     public Patient updatePatient(@PathVariable int id, @RequestBody Patient patient) {
-        //YOUR CODE STARTS HERE
 
         return patientService.updatePatient(patient,id);
 
-        //YOUR CODE ENDS HERE
     }
 
     @DeleteMapping("/deletePatient/{id}")
     public void deletePatient(@PathVariable int id) {
-        //YOUR CODE STARTS HERE
         patientService.deletePatientById(id);
 
 
-        //YOUR CODE ENDS HERE
     }
 
 
